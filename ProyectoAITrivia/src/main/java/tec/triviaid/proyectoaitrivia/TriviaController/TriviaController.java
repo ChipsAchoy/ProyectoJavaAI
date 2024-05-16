@@ -22,7 +22,7 @@ public class TriviaController {
    JsonExtractor jext;
 
    public TriviaController() {
-       conn = new OpenAIConnector("sk-proj-rHXxO6XTcUSjjUs7lG9YT3BlbkFJeyVhYU1JzE0OWy5oIUX4");
+       conn = new OpenAIConnector("");
        jext = new JsonExtractor();
    }
 
