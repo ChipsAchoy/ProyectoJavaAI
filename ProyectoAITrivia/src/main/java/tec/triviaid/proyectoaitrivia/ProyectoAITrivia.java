@@ -7,8 +7,13 @@ package tec.triviaid.proyectoaitrivia;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tec.triviaid.proyectoaitrivia.EmailOpController.EmailSender;
+import tec.triviaid.proyectoaitrivia.EmailOpController.EmailValidation;
+import tec.triviaid.proyectoaitrivia.EmotionAnalyzer.EmotionGetter;
 import tec.triviaid.proyectoaitrivia.apicontroller.OpenAIConnector;
 import tec.triviaid.proyectoaitrivia.JsonController.JsonExtractor;
+
+
 /**
  *
  * @author INTEL
@@ -24,23 +29,33 @@ public class ProyectoAITrivia {
         String respuesta = "";
         String respuesta_content = "";
         OpenAIConnector aiconn = new OpenAIConnector("");
+        EmailSender emcont = new EmailSender();
+        EmailValidation emval = new EmailValidation();
         
         JsonExtractor jext = new JsonExtractor();
-        try {
-            respuesta = aiconn.generateTextCompletion("Dame "+String.valueOf(cantidad_preguntas)+" relacionadas al tema "+tema+" en el idioma "+idioma);
-            respuesta_content = jext.jsonFromAIExtract(respuesta);
+        //try {
+            //respuesta = aiconn.generateTextCompletion("Dame "+String.valueOf(cantidad_preguntas)+" relacionadas al tema "+tema+" en el idioma "+idioma);
+            //respuesta_content = jext.jsonFromAIExtract(respuesta);
             
             //System.out.println(respuesta_content);
-            int respuestaState = jext.verifyAnswer(respuesta_content, "pregunta3", 2);
-            
+            //int respuestaState = jext.verifyAnswer(respuesta_content, "pregunta3", 2);
+            /*
             if (respuestaState == 0){
                 System.out.println("Incorrecta!!!!!");
             }else{
                 System.out.println("Correcta!!!");
             }
+            */
             
+            //int valid = emval.emailValidator("antoca29@gmail.com");
+            //emcont.emailSend("divad0907@gmail.com", "pruebas");
+            EmotionGetter emget = new EmotionGetter();
+            System.out.println(emget.getReaction("It was a neutral experience"));
+            
+        /*    
         } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
         }
+*/
     }
 }
