@@ -11,6 +11,7 @@ package tec.triviaid.proyectoaitrivia.apicontroller;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class OpenAIConnector {
 
@@ -19,7 +20,18 @@ public class OpenAIConnector {
 
     public OpenAIConnector(String apiKey) {
         this.apiKey = apiKey;
+        // Configura un nuevo OkHttpClient.Builder basado en el cliente existente
+        
         this.client = new OkHttpClient();
+        OkHttpClient.Builder builder = this.client.newBuilder();
+        
+        
+        // Establece el tiempo de espera de conexión y lectura en el nuevo builder
+        builder.connectTimeout(30, TimeUnit.SECONDS); // Ajusta el tiempo de espera de conexión
+        builder.readTimeout(60, TimeUnit.SECONDS); // Ajusta el tiempo de espera de lectura
+
+        // Crea un nuevo OkHttpClient con la configuración actualizada
+        this.client = builder.build();
     }
 
     public String generateTextCompletion(String prompt) throws IOException {
@@ -29,8 +41,8 @@ public class OpenAIConnector {
         //String requestBody = "{\"model\": \"gpt-3.5-turbo\", \"messages\": \"" + prompt + "\",";
         
         String requestBody = "{\"model\": \"gpt-3.5-turbo\", \"messages\": ["
-                + "{\"role\": \"system\", \"content\": \"Eres un generador de preguntas y respuestas para una trivia que responde en este formato JSON "
-                + " [{pregunta1: {enunciado:x, respuestas:{numero:n, enunciado:y, correcta:0 (0 o 1 segun si es correcta o no)}, {numero2...} }, pregunta2...}]\"},"
+                + "{\"role\": \"system\", \"content\": \"Eres un generador de preguntas y respuestas (siempre das 4 respuestas posibles por pregunta) para una trivia que responde en este formato JSON (SOLO RESPONDE EL JSON) "
+                + " [{pregunta1: {enunciado:x, respuestas:{numero:1, enunciado:y, correcta:0 (0 o 1 segun si es correcta o no)}, {numero:1, enunciado:y, correcta:1 (0 o 1 segun si es correcta o no)}, {numero:3...} }, pregunta2...}]\"},"
                 + "{\"role\": \"user\", \"content\": \"" + prompt + "\"}"
                 + "]}";
         

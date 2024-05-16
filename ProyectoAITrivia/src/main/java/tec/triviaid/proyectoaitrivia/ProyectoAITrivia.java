@@ -24,11 +24,21 @@ public class ProyectoAITrivia {
         String respuesta = "";
         String respuesta_content = "";
         OpenAIConnector aiconn = new OpenAIConnector("");
+        
         JsonExtractor jext = new JsonExtractor();
         try {
             respuesta = aiconn.generateTextCompletion("Dame "+String.valueOf(cantidad_preguntas)+" relacionadas al tema "+tema+" en el idioma "+idioma);
             respuesta_content = jext.jsonFromAIExtract(respuesta);
-            System.out.println(respuesta_content);
+            
+            //System.out.println(respuesta_content);
+            int respuestaState = jext.verifyAnswer(respuesta_content, "pregunta3", 2);
+            
+            if (respuestaState == 0){
+                System.out.println("Incorrecta!!!!!");
+            }else{
+                System.out.println("Correcta!!!");
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
         }
