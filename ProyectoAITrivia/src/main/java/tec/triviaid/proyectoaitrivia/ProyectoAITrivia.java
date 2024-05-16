@@ -21,7 +21,8 @@ import tec.triviaid.proyectoaitrivia.JsonController.JsonExtractor;
 public class ProyectoAITrivia {
 
     public static void main(String[] args) {
-        //System.out.println("Hello World!");
+
+        
         
         int cantidad_preguntas = 6;
         String idioma = "Español";
