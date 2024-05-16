@@ -9,21 +9,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tec.triviaid.proyectoaitrivia.apicontroller.OpenAIConnector;
 import tec.triviaid.proyectoaitrivia.JsonController.JsonExtractor;
-/**
- *
- * @author INTEL
- */
+
 public class ProyectoAITrivia {
 
     public static void main(String[] args) {
-        //System.out.println("Hello World!");
+
+        
         
         int cantidad_preguntas = 6;
         String idioma = "Español";
         String tema = "Capitales";
         String respuesta = "";
         String respuesta_content = "";
-        OpenAIConnector aiconn = new OpenAIConnector("");
+        OpenAIConnector aiconn = new OpenAIConnector("sk-proj-rHXxO6XTcUSjjUs7lG9YT3BlbkFJeyVhYU1JzE0OWy5oIUX4");
         
         JsonExtractor jext = new JsonExtractor();
         try {

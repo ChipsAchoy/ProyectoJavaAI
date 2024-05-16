@@ -4,10 +4,6 @@
  */
 package tec.triviaid.proyectoaitrivia.JsonController;
 
-/**
- *
- * @author INTEL
- */
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
