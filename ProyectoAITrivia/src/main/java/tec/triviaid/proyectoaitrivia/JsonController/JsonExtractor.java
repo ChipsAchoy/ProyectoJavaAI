@@ -20,10 +20,16 @@ public class JsonExtractor {
         
         JSONArray questionsArray = new JSONArray(jsonString);
         for (int i = 0; i < questionsArray.length(); i++) {
-            JSONObject questionObject = questionsArray.getJSONObject(i).getJSONObject(questionKey);
-            if (questionObject != null) {
-                return questionObject.getString("enunciado");
+            
+            if(questionsArray.getJSONObject(i).has(questionKey)){
+                JSONObject questionObject = questionsArray.getJSONObject(i).getJSONObject(questionKey);
+                if (questionObject != null) {
+                    return questionObject.getString("enunciado");
+                }
+            }else {
+                System.out.println("No se encontró la clave de pregunta: " + questionKey);
             }
+            
         }
         return null;
     }
