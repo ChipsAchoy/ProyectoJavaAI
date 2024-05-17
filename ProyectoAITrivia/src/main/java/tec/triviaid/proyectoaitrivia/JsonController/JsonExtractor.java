@@ -7,10 +7,58 @@ package tec.triviaid.proyectoaitrivia.JsonController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class JsonExtractor {
     
     public String content;
     
+    public String getQuestionEnunciado(String jsonString, String questionKey) {
+        
+        
+        JSONArray questionsArray = new JSONArray(jsonString);
+        for (int i = 0; i < questionsArray.length(); i++) {
+            JSONObject questionObject = questionsArray.getJSONObject(i).getJSONObject(questionKey);
+            if (questionObject != null) {
+                return questionObject.getString("enunciado");
+            }
+        }
+        return null;
+    }
+    
+    public List<String> getQuestionRespuestasEnunciados(String jsonString, String questionKey) {
+        List<String> enunciados = new ArrayList<>();
+
+        try {
+            JSONArray questionsArray = new JSONArray(jsonString);
+
+            for (int i = 0; i < questionsArray.length(); i++) {
+                if (questionsArray.getJSONObject(i).has(questionKey)) {
+                    JSONObject questionObject = questionsArray.getJSONObject(i).getJSONObject(questionKey);
+
+                    if (questionObject != null && questionObject.has("respuestas")) {
+                        JSONArray respuestasArray = questionObject.getJSONArray("respuestas");
+
+                        for (int j = 0; j < respuestasArray.length(); j++) {
+                            enunciados.add(respuestasArray.getJSONObject(j).getString("enunciado"));
+                        }
+                    } else {
+                        System.out.println("No se encontraron respuestas para la pregunta: " + questionKey);
+                    }
+                } else {
+                    System.out.println("No se encontró la clave de pregunta: " + questionKey);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error procesando el JSON: " + e.getMessage());
+        }
+
+        return enunciados;
+    }
+
     
     public int verifyAnswer(String jsonString, String pregunta, int numeroRespuesta) {
         // JSON en formato String
