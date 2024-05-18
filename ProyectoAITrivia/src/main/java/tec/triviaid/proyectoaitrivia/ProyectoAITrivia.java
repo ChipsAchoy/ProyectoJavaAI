@@ -35,7 +35,7 @@ public class ProyectoAITrivia {
 */
 
 
-/*
+
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -48,6 +48,7 @@ import tec.triviaid.proyectoaitrivia.JsonController.JsonExtractor;
 
 import java.util.ArrayList;
 import java.util.List;
+import tec.triviaid.proyectoaitrivia.FileController.FileOperations;
 import tec.triviaid.proyectoaitrivia.GraphGeneration.WordCloudGenerator;
 
 
@@ -66,10 +67,24 @@ public class ProyectoAITrivia {
 
         JsonExtractor jext = new JsonExtractor();
         
-        
-        
-        /*
+        FileOperations fp = new FileOperations("Feedback/feedback.json");
         try {
+            List<String> listS = fp.readComments();
+            for (String item : listS) {
+                System.out.println(item);
+            }
+            fp.appendToJson("Inmejorable");
+            listS = fp.readComments();
+            for (String item : listS) {
+                System.out.println(item);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            /*
+            
+            try {
             respuesta = aiconn.generateTextCompletion("Dame " + String.valueOf(cantidad_preguntas) + " relacionadas al tema " + tema + " en el idioma " + idioma);
             respuesta_content = jext.jsonFromAIExtract(respuesta);
 
@@ -82,15 +97,15 @@ public class ProyectoAITrivia {
             List<String> enunciadosPreguntas = jext.getQuestionRespuestasEnunciados(respuesta_content, "pregunta1");
 
             for (String item : enunciadosPreguntas) {
-                System.out.println(item);
+            System.out.println(item);
             }
 
             int respuestaState = jext.verifyAnswer(respuesta_content, "pregunta3", 2);
             
             if (respuestaState == 0){
-                System.out.println("Incorrecta!!!!!");
+            System.out.println("Incorrecta!!!!!");
             }else{
-                System.out.println("Correcta!!!");
+            System.out.println("Correcta!!!");
             }
             
 
@@ -98,18 +113,19 @@ public class ProyectoAITrivia {
             //emcont.emailSend("divad0907@gmail.com", "pruebas");
             //EmotionGetter emget = new EmotionGetter();
             //System.out.println(emget.getReaction("It was a neutral experience"));
-        } catch (IOException ex) {
+            } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }
+            */
         
         
 
     }
 }
 
-*/
 
 
+/*
 import javax.swing.JFrame;
 import java.util.Arrays;
 import java.util.List;
@@ -132,3 +148,5 @@ public class ProyectoAITrivia extends JFrame {
         });
     }
 }
+
+*/

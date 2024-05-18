@@ -4,14 +4,22 @@
  */
 package tec.triviaid.proyectoaitrivia;
 
+import java.io.IOException;
+import java.util.Arrays;
 import tec.triviaid.proyectoaitrivia.TriviaController.TriviaController;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 import tec.triviaid.proyectoaitrivia.Estadisticas.TriviaTracker;
+import tec.triviaid.proyectoaitrivia.FileController.FileOperations;
+import tec.triviaid.proyectoaitrivia.GraphGeneration.PieChartGenerator;
+import tec.triviaid.proyectoaitrivia.GraphGeneration.WordCloudGenerator;
 import tec.triviaid.proyectoaitrivia.JsonController.JsonExtractor;
 import tec.triviaid.proyectoaitrivia.TriviaController.Trivia;
 
@@ -68,6 +76,7 @@ public class GUI extends javax.swing.JFrame {
         fiftyfifty_button = new javax.swing.JButton();
         add_min_button = new javax.swing.JButton();
         statsPanel = new javax.swing.JPanel();
+        feedbackPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -389,6 +398,19 @@ public class GUI extends javax.swing.JFrame {
 
         background.add(statsPanel, "card5");
 
+        javax.swing.GroupLayout feedbackPanelLayout = new javax.swing.GroupLayout(feedbackPanel);
+        feedbackPanel.setLayout(feedbackPanelLayout);
+        feedbackPanelLayout.setHorizontalGroup(
+            feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 517, Short.MAX_VALUE)
+        );
+        feedbackPanelLayout.setVerticalGroup(
+            feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 401, Short.MAX_VALUE)
+        );
+
+        background.add(feedbackPanel, "card6");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -565,7 +587,76 @@ public class GUI extends javax.swing.JFrame {
         TriviasList.setListData(triviaNames);
     }
 
+    public void trivia_to_stats(){
+        
+        triviaPanel.setVisible(false);
+        statsPanel.setVisible(true);
+        
+        
+        List<String>  cats = Arrays.asList("Incorrectas", "Correctas");
+        
+        
+        List<Integer> values = Arrays.asList(tracker.getIncorrectas(), tracker.getCorrectas());
+        
+        
+        PieChartGenerator pieStats = new PieChartGenerator("Análisis de respuestas" ,cats, values);
+        
+        pieStats.setSize(600, 600);
+        pieStats.setLocationRelativeTo(null);
+        pieStats.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pieStats.setVisible(true);
+        
+        
+    }
+    
+    
+    public void stats_to_feedback(){
+        
+        
+        statsPanel.setVisible(false);
+        feedbackPanel.setVisible(true);
+        try {
 
+            FileOperations fop = new FileOperations("Feedback/feedback.json");
+            
+            
+            List<String> current_words = fop.readComments();
+            
+            
+            
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+    public void feedback_to_endReset(){
+        
+        
+        statsPanel.setVisible(false);
+        feedbackPanel.setVisible(true);
+        try {
+
+            FileOperations fop = new FileOperations("Feedback/feedback.json");
+            
+            
+            List<String> current_words = fop.readComments();
+            
+            WordCloudGenerator wg = new WordCloudGenerator();
+            wg.initUI(current_words);
+            
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     public void start_trivia(){
         
         //make all buttons enabled
@@ -659,12 +750,8 @@ public class GUI extends javax.swing.JFrame {
         if (currentQuestionIndex > currentTrivia.getCantidadPreguntas()){
             scheduler.shutdownNow();
             javax.swing.JOptionPane.showMessageDialog(this, "Trivia Terminada!!!");
-            triviaPanel.setVisible(false);
-            statsPanel.setVisible(true);
             tracker.calculateAverage();
-            System.out.println("Correctas: "+tracker.getCorrectas());
-            System.out.println("Incorrectas: "+tracker.getIncorrectas());
-            System.out.println("Tiempo promedio por pregunta: "+tracker.tiempoxpregunta);
+            this.trivia_to_stats();
             
         }else{
             set_question(currentQuestionIndex);
@@ -733,6 +820,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton add_min_button;
     private javax.swing.JPanel background;
     public javax.swing.JTextField correoField;
+    private javax.swing.JPanel feedbackPanel;
     private javax.swing.JButton fiftyfifty_button;
     public javax.swing.JButton generateButton;
     public javax.swing.JPanel generatemenu;

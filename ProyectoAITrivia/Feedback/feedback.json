@@ -1,0 +1,84 @@
+{
+  "feedback" : [ {
+    "numero" : 1,
+    "comentario" : "Increíble"
+  }, {
+    "numero" : 2,
+    "comentario" : "Pésimo"
+  }, {
+    "numero" : 3,
+    "comentario" : "Muy bueno"
+  }, {
+    "numero" : 4,
+    "comentario" : "Aceptable"
+  }, {
+    "numero" : 5,
+    "comentario" : "Excelente"
+  }, {
+    "numero" : 6,
+    "comentario" : "No me gustó"
+  }, {
+    "numero" : 7,
+    "comentario" : "Podría mejorar"
+  }, {
+    "numero" : 8,
+    "comentario" : "Me encantó"
+  }, {
+    "numero" : 9,
+    "comentario" : "Regular"
+  }, {
+    "numero" : 10,
+    "comentario" : "Maravilloso"
+  }, {
+    "numero" : 11,
+    "comentario" : "Satisfactorio"
+  }, {
+    "numero" : 12,
+    "comentario" : "Decepcionante"
+  }, {
+    "numero" : 13,
+    "comentario" : "Fabuloso"
+  }, {
+    "numero" : 14,
+    "comentario" : "Muy malo"
+  }, {
+    "numero" : 15,
+    "comentario" : "Interesante"
+  }, {
+    "numero" : 16,
+    "comentario" : "Sorprendente"
+  }, {
+    "numero" : 17,
+    "comentario" : "Aburrido"
+  }, {
+    "numero" : 18,
+    "comentario" : "Entretenido"
+  }, {
+    "numero" : 19,
+    "comentario" : "Fantástico"
+  }, {
+    "numero" : 20,
+    "comentario" : "Malo"
+  }, {
+    "numero" : 21,
+    "comentario" : "Asombroso"
+  }, {
+    "numero" : 22,
+    "comentario" : "Perfecto"
+  }, {
+    "numero" : 23,
+    "comentario" : "Bastante bueno"
+  }, {
+    "numero" : 24,
+    "comentario" : "Flojo"
+  }, {
+    "numero" : 25,
+    "comentario" : "Inolvidable"
+  }, {
+    "numero" : 25,
+    "comentario" : "Meh"
+  }, {
+    "numero" : 26,
+    "comentario" : "Inmejorable"
+  } ]
+}
