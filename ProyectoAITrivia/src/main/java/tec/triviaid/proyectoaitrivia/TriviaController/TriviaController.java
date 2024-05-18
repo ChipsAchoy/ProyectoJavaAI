@@ -22,12 +22,12 @@ public class TriviaController {
    JsonExtractor jext;
 
    public TriviaController() {
-       conn = new OpenAIConnector("sk-proj-rHXxO6XTcUSjjUs7lG9YT3BlbkFJeyVhYU1JzE0OWy5oIUX4");
+       conn = new OpenAIConnector("");
        jext = new JsonExtractor();
    }
 
 
-   public Trivia generateTrivia(String idioma, String tema, int cantidad_preguntas) {
+   public Trivia generateTrivia(String idioma, String tema, int cantidad_preguntas, int tiempo_pregunta) {
        String respuesta;
        respuesta = "";
        String respuesta_content = "";
@@ -35,7 +35,8 @@ public class TriviaController {
             respuesta = conn.generateTextCompletion("Dame " + String.valueOf(cantidad_preguntas) + " relacionadas al tema " + tema + " en el idioma " + idioma);
             respuesta_content = jext.jsonFromAIExtract(respuesta);
 
-            Trivia trivia = new Trivia(respuesta_content);
+            Trivia trivia = new Trivia(respuesta_content, tema, idioma, cantidad_preguntas, tiempo_pregunta);
+            System.out.println("Trivia: "+trivia.toString());
             
             return trivia;
 
@@ -46,40 +47,13 @@ public class TriviaController {
        return null;
    }
 
-   public int countFilesInFolder(String folderPath) {
-        // Create a File object representing the folder
-        System.out.println("Provided folder path: " + folderPath);
-        File folder = new File(folderPath);
-
-        // Ensure that the specified path is a directory
-        if (!folder.isDirectory()) {
-            System.out.println("The specified path is not a directory.");
-            return -1; // Return -1 to indicate an error
-        }
-
-        // List the files in the directory
-        File[] files = folder.listFiles();
-
-        // Count the number of files
-        int fileCount = 0;
-        if (files != null) {
-            for (File file : files) {
-                if (file.isFile()) {
-                    fileCount++;
-                }
-            }
-        }
-
-        return fileCount;
-    }
+   
 
     public boolean SerializeTrivia(Trivia trivia, String Nombre, String Tema, String Idioma, int CantidadPreguntas) {
-
+        boolean flag = false;
         try {
-            // Get the number of trivia files in the folder
-            int triviaCount = countFilesInFolder("Trivias");
             
-            String fileName = "Trivias/" + Nombre + "_" + Tema + "_" + Idioma + "_" + CantidadPreguntas + "_" + triviaCount + ".ser";
+            String fileName = "Trivias/"+Nombre + "_" + Tema + "_" + Idioma + "_" + String.valueOf(CantidadPreguntas) + ".bin";
 
             FileOutputStream fileOut = new FileOutputStream(fileName);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -87,13 +61,40 @@ public class TriviaController {
             out.close();
             fileOut.close();
 
+            flag = true;
 
         } catch (IOException i) {
-            return false;
+            System.err.println("Error al serializar la trivia");
+            System.err.println(i.getMessage());
+            flag = false;
         } 
-       return false;
-            
+       
+        return flag;
     }
 
+
+    //Deserialize all the trivia in the Trivias folder and return them in an array
+    public Trivia[] getTrivias() {
+        
+        File folder = new File("Trivias");
+        File[] listOfFiles = folder.listFiles();
+        Trivia[] trivias = new Trivia[listOfFiles.length];
+        try {
+            for (int i = 0; i < listOfFiles.length; i++) {
+                FileInputStream fileIn = new FileInputStream(listOfFiles[i]);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                trivias[i] = (Trivia) in.readObject();
+                in.close();
+                fileIn.close();
+            }
+        } catch (IOException i) {
+            System.err.println("Error al deserializar la trivia");
+            System.err.println(i.getMessage());
+        } catch (ClassNotFoundException c) {
+            System.err.println("Error al deserializar la trivia");
+            System.err.println(c.getMessage());
+        }
+        return trivias;
+    }
     
 }

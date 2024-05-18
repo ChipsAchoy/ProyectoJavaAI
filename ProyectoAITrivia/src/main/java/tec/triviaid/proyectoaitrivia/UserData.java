@@ -73,4 +73,8 @@ public class UserData {
         this.tiempoxpregunta = tiempoxpregunta;
     }
 
+    public String toString() {
+        return "Nombre: " + Nombre + "\nCorreo: " + Correo + "\nCantidad de preguntas: " + String.valueOf(cantidad_preguntas) + "\nIdioma: " + idioma + "\nTema: " + tema + "\nTiempo por pregunta: " + String.valueOf(tiempoxpregunta);
+    }
+    
 }
