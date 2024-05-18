@@ -109,7 +109,7 @@ public class ProyectoAITrivia {
 
 */
 
-/*
+
 import javax.swing.JFrame;
 import java.util.Arrays;
 import java.util.List;
@@ -132,5 +132,3 @@ public class ProyectoAITrivia extends JFrame {
         });
     }
 }
-
-*/
