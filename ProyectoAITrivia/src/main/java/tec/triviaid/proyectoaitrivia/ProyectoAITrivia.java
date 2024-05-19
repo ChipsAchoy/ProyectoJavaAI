@@ -67,7 +67,7 @@ public class ProyectoAITrivia {
         EmailValidation emval = new EmailValidation();
 
         JsonExtractor jext = new JsonExtractor();
-        
+        /*
         FileOperations fp = new FileOperations("Feedback/feedback.json");
         try {
             List<String> listS = fp.readComments();
@@ -82,6 +82,7 @@ public class ProyectoAITrivia {
         } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
         
         
         //pdfCreate.createPDF(, , , , , , );
