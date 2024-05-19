@@ -510,6 +510,7 @@ public class GUI extends javax.swing.JFrame {
                         if (i == 3) {
                             option3button.setEnabled(false);
                         } else {
+                            
                             option4button.setEnabled(false);
                         }
                     } else {
