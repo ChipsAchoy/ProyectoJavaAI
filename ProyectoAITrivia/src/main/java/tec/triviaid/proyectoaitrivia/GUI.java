@@ -102,38 +102,22 @@ public class GUI extends javax.swing.JFrame {
         NombreLabel.setText("Nombre:");
 
         temaField.setToolTipText("");
-        temaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                temaFieldActionPerformed(evt);
-            }
-        });
+        
 
         TemaLabel.setText("Tema de conocimiento general:");
 
         numPreguntasField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6", "7", "8", "9", "10", "11", "12" }));
-        numPreguntasField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numPreguntasFieldActionPerformed(evt);
-            }
-        });
+        
 
         jLabel1.setText("Cantidad de Preguntas:");
 
         tiempoxPreguntaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        tiempoxPreguntaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tiempoxPreguntaFieldActionPerformed(evt);
-            }
-        });
+        
 
         TiempoxPreguntaLabel.setText("Tiempo por Pregunta (minutos):");
 
         iIdiomaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés", "Mandarín", "Francés" }));
-        iIdiomaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iIdiomaFieldActionPerformed(evt);
-            }
-        });
+        
 
         jLabel2.setText("Idioma:");
 
@@ -444,21 +428,7 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreFieldActionPerformed
 
-    private void temaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temaFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_temaFieldActionPerformed
-
-    private void numPreguntasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numPreguntasFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numPreguntasFieldActionPerformed
-
-    private void iIdiomaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iIdiomaFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iIdiomaFieldActionPerformed
-
-    private void tiempoxPreguntaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiempoxPreguntaFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tiempoxPreguntaFieldActionPerformed
+    
 
     private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
    
@@ -531,8 +501,28 @@ public class GUI extends javax.swing.JFrame {
 
     private void fiftyfifty_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiftyfifty_buttonActionPerformed
         fiftyfifty_button.setEnabled(false);
-
+        tracker.useComodin();
         //randomly select two wrong answers
+        for (int i = 1; i <= 4; i++) {
+            if (jext.verifyAnswer(currentTrivia.getTriviaString(), "pregunta" + currentQuestionIndex, i) == 0) {
+                if (i != 1 && i != 2) {
+                    if (Math.random() < 0.5) {
+                        if (i == 3) {
+                            option3button.setEnabled(false);
+                        } else {
+                            
+                            option4button.setEnabled(false);
+                        }
+                    } else {
+                        if (i == 3) {
+                            option4button.setEnabled(false);
+                        } else {
+                            option3button.setEnabled(false);
+                        }
+                    }
+                }
+            }
+        }
         
 
 
@@ -540,7 +530,10 @@ public class GUI extends javax.swing.JFrame {
 
     private void add_min_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_min_buttonActionPerformed
         add_min_button.setEnabled(false);
+        tracker.addTime();
+        tracker.useComodin();
         
+
     }//GEN-LAST:event_add_min_buttonActionPerformed
 
     private void option1buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1buttonActionPerformed
@@ -703,10 +696,11 @@ public class GUI extends javax.swing.JFrame {
          Runnable countdownTask = () -> {
             scheduler = Executors.newScheduledThreadPool(1);
             Runnable task = new Runnable() {
-                int remainingSeconds = currentTrivia.getTiempoXPregunta() * 60;
+                int remainingSeconds = currentTrivia.getTiempoXPregunta() * 60 + currentTrivia.getAddedTime();
 
                 @Override
                 public void run() {
+                    remainingSeconds = tracker.getRemainingSeconds();
                     if (remainingSeconds > 0) {
                         int displayMinutes = remainingSeconds / 60;
                         int displaySeconds = remainingSeconds % 60;
@@ -787,6 +781,7 @@ public class GUI extends javax.swing.JFrame {
 
     public TriviaTracker tracker;
     public ScheduledExecutorService scheduler;
+    
 
     /**
      * @param args the command line arguments
