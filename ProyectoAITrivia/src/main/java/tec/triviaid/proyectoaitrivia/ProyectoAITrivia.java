@@ -174,6 +174,8 @@ public class ProyectoAITrivia {
                 respuestasCorrectas, imagePath, comodinesUsados, avgTime, correctas, incorrectas);
         
         
+        File fpdf = new File("PDFSend/reporte_trivia.pdf");
+        //emcont.emailSend("divad0907@gmail.com", "pruebas", fpdf);
 
     }
 }

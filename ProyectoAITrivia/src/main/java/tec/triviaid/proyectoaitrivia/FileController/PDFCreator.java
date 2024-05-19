@@ -1,5 +1,7 @@
 package tec.triviaid.proyectoaitrivia.FileController;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -9,6 +11,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public class PDFCreator {
 
@@ -80,11 +84,7 @@ public class PDFCreator {
                     y -= 15;
                 }
 
-                if (imagePath != null && !imagePath.isEmpty()) {
-                    // No se puede agregar imágenes directamente con PDFBox en este ejemplo.
-                    // Tendrías que investigar cómo agregar imágenes usando PDFBox si lo necesitas.
-                    // Aquí simplemente omitimos este paso.
-                }
+                
 
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
@@ -119,6 +119,28 @@ public class PDFCreator {
                 contentStream.newLineAtOffset(120, y);
                 contentStream.showText("Respondidas incorrectamente: " + incorrectas);
                 contentStream.endText();
+                
+                // Agregar imagen al documento (si existe)
+            if (imagePath != null && !imagePath.isEmpty()) {
+                BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
+                int imgWidth = bufferedImage.getWidth();
+                int imgHeight = bufferedImage.getHeight();
+                float maxWidth = page.getMediaBox().getWidth() - 100; // Establecer el ancho máximo como el ancho de la página menos 100
+                float maxHeight = page.getMediaBox().getHeight() - 100; // Establecer la altura máxima como la altura de la página menos 100
+                float widthScale = maxWidth / imgWidth;
+                float heightScale = maxHeight / imgHeight;
+                float scale = Math.min(widthScale, heightScale);
+
+                // Redimensionar la imagen
+                int newWidth = (int) (imgWidth * scale);
+                int newHeight = (int) (imgHeight * scale);
+
+                // Colocar la imagen al final del documento
+                float x = (page.getMediaBox().getWidth() - newWidth) / 2;
+                float y_1= 50f; // Margen inferior de 50 puntos desde la parte inferior de la página
+                contentStream.drawImage(PDImageXObject.createFromFile(imagePath, document), x, y_1, newWidth, newHeight);
+            }
+
             }
 
             document.save(dest);
