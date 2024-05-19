@@ -108,55 +108,30 @@ public class GUI extends javax.swing.JFrame {
 
         nombreField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         nombreField.setToolTipText("");
-        nombreField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreFieldActionPerformed(evt);
-            }
-        });
 
         NombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         NombreLabel.setText("Nombre:");
 
         temaField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         temaField.setToolTipText("");
-        temaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                temaFieldActionPerformed(evt);
-            }
-        });
 
         TemaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TemaLabel.setText("Tema de conocimiento general:");
 
         numPreguntasField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         numPreguntasField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6", "7", "8", "9", "10", "11", "12" }));
-        numPreguntasField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numPreguntasFieldActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Cantidad de Preguntas:");
 
         tiempoxPreguntaField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tiempoxPreguntaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        tiempoxPreguntaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tiempoxPreguntaFieldActionPerformed(evt);
-            }
-        });
 
         TiempoxPreguntaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TiempoxPreguntaLabel.setText("Tiempo por Pregunta (minutos):");
 
         iIdiomaField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         iIdiomaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés", "Mandarín", "Francés" }));
-        iIdiomaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iIdiomaFieldActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Idioma:");
@@ -529,10 +504,6 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreFieldActionPerformed
 
     
 
