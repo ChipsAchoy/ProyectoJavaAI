@@ -62,7 +62,7 @@ public class ProyectoAITrivia {
         String tema = "Capitales";
         String respuesta = "";
         String respuesta_content = "";
-        OpenAIConnector aiconn = new OpenAIConnector("");
+        //OpenAIConnector aiconn = new OpenAIConnector("");
         EmailSender emcont = new EmailSender();
         EmailValidation emval = new EmailValidation();
 
@@ -87,7 +87,7 @@ public class ProyectoAITrivia {
         
         //pdfCreate.createPDF(, , , , , , );
             
-           
+           /*
             
             try {
             respuesta = aiconn.generateTextCompletion("Dame " + String.valueOf(cantidad_preguntas) + " relacionadas al tema " + tema + " en el idioma " + idioma);
@@ -121,6 +121,8 @@ public class ProyectoAITrivia {
             } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
             }
+        */
+           /*
             List<Integer> numbers = List.of(3, 3, 3, 3, 3, 2);
             List<String> answersByNumbers = jext.getAnswersByNumbers(numbers, respuesta_content);
             
@@ -128,6 +130,45 @@ public class ProyectoAITrivia {
             pdfCreate.createPDF("PDFSend/file.pdf", jext.getQuestionStatements(respuesta_content), 
                     jext.getAllAnswerStatements(respuesta_content), answersByNumbers,
                     jext.getCorrectAnswers(respuesta_content), "Graficos/piechart.png",1, (float)23.5 );
+           
+           */
+           // Datos para el PDF
+        List<String> preguntas = new ArrayList<>();
+        preguntas.add("¿Cuál es la capital de España?");
+        preguntas.add("¿Cuál es la capital de Argentina?");
+        preguntas.add("¿Cuál es la capital de México?");
+
+        List<String> respuestas = new ArrayList<>();
+        respuestas.add("Lisboa");
+        respuestas.add("Barcelona");
+        respuestas.add("Madrid");
+        respuestas.add("Valencia");
+        respuestas.add("Montevideo");
+        respuestas.add("Santiago");
+        respuestas.add("Buenos Aires");
+        respuestas.add("Asunción");
+        respuestas.add("Bogotá");
+        respuestas.add("México D.F.");
+        respuestas.add("Ciudad de México");
+        respuestas.add("Lima");
+
+        List<String> respuestasJugador = new ArrayList<>();
+        respuestasJugador.add("Madrid");
+        respuestasJugador.add("Buenos Aires");
+        respuestasJugador.add("Ciudad de México");
+
+        List<String> respuestasCorrectas = new ArrayList<>();
+        respuestasCorrectas.add("Madrid");
+        respuestasCorrectas.add("Buenos Aires");
+        respuestasCorrectas.add("Ciudad de México");
+
+        String imagePath = "Graficos/piechart.png"; // Ruta de la imagen
+        int comodinesUsados = 2;
+        float avgTime = 45.5f;
+
+        // Generar PDF
+        PDFCreator pdfCreator = new PDFCreator();
+        pdfCreator.createPDF("reporte_trivia.pdf", preguntas, respuestas, respuestasJugador, respuestasCorrectas, imagePath, comodinesUsados, avgTime);
         
         
 
