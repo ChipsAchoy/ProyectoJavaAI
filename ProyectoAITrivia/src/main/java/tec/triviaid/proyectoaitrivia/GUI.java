@@ -703,26 +703,7 @@ public class GUI extends javax.swing.JFrame {
         tiempoxpreguntaLabel.setText("Tiempo por pregunta: "+tracker.getAverage() + " s");
 
         //fill the table with the stats
-        statTable = new JTable() {
-            @Override
-            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-                Component c = (Component) super.prepareRenderer(renderer, row, column);
-        
-                //  Column data at row
-                int[] preguntas = tracker.getPreguntas();
-        
-                //  Change row color where necessary
-                if (preguntas[row] == 1) {
-                    c.setBackground(Color.GREEN);
-                } else {
-                    c.setBackground(Color.RED);
-                }
-        
-                return c;
-            }
-        };
-
-        String columnNames[] = {"Pregunta", "Respuesta Correcta"};
+        String columnNames[] = {"Pregunta", "Respuesta Correcta xd"};
         String data[][] = new String[currentTrivia.getCantidadPreguntas()][2];
         List<String> correctAnswers = jext.getCorrectAnswers(currentTrivia.getTriviaString());
         for (int i = 0; i < currentTrivia.getCantidadPreguntas(); i++) {
