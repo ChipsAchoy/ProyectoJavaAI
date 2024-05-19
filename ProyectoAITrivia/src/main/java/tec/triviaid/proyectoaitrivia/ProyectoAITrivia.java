@@ -165,10 +165,13 @@ public class ProyectoAITrivia {
         String imagePath = "Graficos/piechart.png"; // Ruta de la imagen
         int comodinesUsados = 2;
         float avgTime = 45.5f;
+        int correctas = 3;
+        int incorrectas = 0;
 
         // Generar PDF
         PDFCreator pdfCreator = new PDFCreator();
-        pdfCreator.createPDF("reporte_trivia.pdf", preguntas, respuestas, respuestasJugador, respuestasCorrectas, imagePath, comodinesUsados, avgTime);
+        pdfCreator.createPDF("PDFSend/reporte_trivia.pdf", preguntas, respuestas, respuestasJugador, 
+                respuestasCorrectas, imagePath, comodinesUsados, avgTime, correctas, incorrectas);
         
         
 
