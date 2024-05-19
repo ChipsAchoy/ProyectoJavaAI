@@ -23,13 +23,13 @@ public class PDFCreator {
 
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 20);
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10);
                 contentStream.newLineAtOffset(100, 700);
                 contentStream.showText("Reporte de Trivia");
                 contentStream.endText();
 
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.newLineAtOffset(100, 650);
                 contentStream.showText("Preguntas:");
                 contentStream.endText();
@@ -37,7 +37,7 @@ public class PDFCreator {
                 float y = 630;
                 for (int i = 0; i < preguntas.size(); i++) {
                     contentStream.beginText();
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.setFont(PDType1Font.HELVETICA, 8);
                     contentStream.newLineAtOffset(120, y);
                     contentStream.showText("- " + preguntas.get(i));
                     contentStream.newLineAtOffset(20, -15);
@@ -53,7 +53,7 @@ public class PDFCreator {
                 }
 
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10);
                 contentStream.newLineAtOffset(100, y - 20);
                 contentStream.showText("Respuestas del jugador:");
                 contentStream.endText();
@@ -61,7 +61,7 @@ public class PDFCreator {
                 y -= 40;
                 for (String respuestaJugador : respuestasJugador) {
                     contentStream.beginText();
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.setFont(PDType1Font.HELVETICA, 8);
                     contentStream.newLineAtOffset(120, y);
                     contentStream.showText("- " + respuestaJugador);
                     contentStream.endText();
@@ -69,7 +69,7 @@ public class PDFCreator {
                 }
 
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10);
                 contentStream.newLineAtOffset(100, y - 20);
                 contentStream.showText("Respuestas correctas:");
                 contentStream.endText();
@@ -77,7 +77,7 @@ public class PDFCreator {
                 y -= 40;
                 for (String respuestaCorrecta : respuestasCorrectas) {
                     contentStream.beginText();
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.setFont(PDType1Font.HELVETICA, 8);
                     contentStream.newLineAtOffset(120, y);
                     contentStream.showText("- " + respuestaCorrecta);
                     contentStream.endText();
@@ -87,35 +87,35 @@ public class PDFCreator {
                 
 
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10);
                 contentStream.newLineAtOffset(100, y - 20);
                 contentStream.showText("Resumen de Estadísticas:");
                 contentStream.endText();
 
                 y -= 40;
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.setFont(PDType1Font.HELVETICA, 8);
                 contentStream.newLineAtOffset(120, y);
                 contentStream.showText("Comodines Usados: " + comodinesUsados);
                 contentStream.endText();
 
                 y -= 20;
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.setFont(PDType1Font.HELVETICA, 8);
                 contentStream.newLineAtOffset(120, y);
                 contentStream.showText("Tiempo Promedio: " + avgTime);
                 contentStream.endText();
                 
                 y -= 20;
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.setFont(PDType1Font.HELVETICA, 8);
                 contentStream.newLineAtOffset(120, y);
                 contentStream.showText("Respondidas correctamente: " + correctas);
                 contentStream.endText();
                 
                 y -= 20;
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.setFont(PDType1Font.HELVETICA, 8);
                 contentStream.newLineAtOffset(120, y);
                 contentStream.showText("Respondidas incorrectamente: " + incorrectas);
                 contentStream.endText();
