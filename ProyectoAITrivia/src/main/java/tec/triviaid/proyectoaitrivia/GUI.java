@@ -696,10 +696,12 @@ public class GUI extends javax.swing.JFrame {
          Runnable countdownTask = () -> {
             scheduler = Executors.newScheduledThreadPool(1);
             Runnable task = new Runnable() {
-                int remainingSeconds = currentTrivia.getTiempoXPregunta() * 60 + currentTrivia.getAddedTime();
+                int remainingSeconds = currentTrivia.getTiempoXPregunta() * 60;
+                
 
                 @Override
                 public void run() {
+                    tracker.setRemainingSeconds(remainingSeconds);
                     remainingSeconds = tracker.getRemainingSeconds();
                     if (remainingSeconds > 0) {
                         int displayMinutes = remainingSeconds / 60;
