@@ -14,7 +14,7 @@ public class Trivia implements Serializable{
     public int CantidadPreguntas = 0;
     public int TiempoXPregunta = 0;
     public boolean fiftyFifty = true;
-    public boolean extraMin = true;
+    
     
 
 
@@ -72,5 +72,6 @@ public class Trivia implements Serializable{
         return "Tema: "+Tema+" Idioma: "+Idioma+" Cantidad de Preguntas: "+ String.valueOf(CantidadPreguntas)+" Tiempo por Pregunta: "+String.valueOf(TiempoXPregunta);
     }
 
+    
     
 }

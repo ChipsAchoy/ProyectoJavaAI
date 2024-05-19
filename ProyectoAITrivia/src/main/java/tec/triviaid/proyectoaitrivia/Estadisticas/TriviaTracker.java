@@ -30,6 +30,9 @@ public class TriviaTracker {
     public void setRemainingSeconds(int seconds) {
         this.remainingSeconds = seconds;
     }
+    public int getRemainingSeconds() {
+        return this.remainingSeconds;
+    }
 
     public void addCorrecta(int pregunta) {
         correctas++;
@@ -61,14 +64,17 @@ public class TriviaTracker {
         tiempoxpregunta  = remainingSeconds / total_preguntas;
     }
     
-    public void addComodin(){
-        
-        this.comodinesUsados++;
-        
-    }
     
-    private int getComodines(){
+    public int getComodines(){
         
         return this.comodinesUsados;
     }    
+
+    public void useComodin(){
+        this.comodinesUsados++;
+    }
+
+    public void addTime(){
+        this.remainingSeconds += 60;
+    }
 }
