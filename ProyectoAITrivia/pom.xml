@@ -83,7 +83,6 @@
             <version>7.2.0</version> <!-- O la versión más reciente -->
         </dependency>
     </dependencies>
-    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>16</maven.compiler.source>
