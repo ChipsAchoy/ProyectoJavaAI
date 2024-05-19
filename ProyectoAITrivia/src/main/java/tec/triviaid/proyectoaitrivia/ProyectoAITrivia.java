@@ -120,9 +120,13 @@ public class ProyectoAITrivia {
             } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
             }
+            List<Integer> numbers = List.of(3, 3, 3, 3, 3, 2);
+            List<String> answersByNumbers = jext.getAnswersByNumbers(numbers, respuesta_content);
             
             PDFCreator pdfCreate = new PDFCreator();
-            pdfCreate.createPDF("PDFSend/file.pdf", , respuestasJugador, respuestasCorrectas, tema, cantidad_preguntas, cantidad_preguntas);
+            pdfCreate.createPDF("PDFSend/file.pdf", jext.getQuestionStatements(respuesta_content), 
+                    jext.getAllAnswerStatements(respuesta_content), answersByNumbers,
+                    jext.getCorrectAnswers(respuesta_content), "Graficos/piechart.png",1, (float)23.5 );
         
         
 

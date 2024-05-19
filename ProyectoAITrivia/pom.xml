@@ -39,22 +39,6 @@
             <version>4.7.6</version>
         </dependency>
         <dependency>
-            <groupId>com.kennycason</groupId>
-            <artifactId>kumo</artifactId>
-            <version>1.8</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.kennycason</groupId>
-            <artifactId>kumo-core</artifactId>
-            <version>1.28</version>
-        </dependency>
-        <dependency>
-            <groupId>com.kennycason</groupId>
-            <artifactId>kumo-tokenizers</artifactId>
-            <version>1.28</version>
-        </dependency>
-        <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>3.3.0</version>
@@ -92,6 +76,11 @@
             <artifactId>layout</artifactId>
             <version>7.1.19</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+            <version>7.2.0</version> <!-- O la versión más reciente -->
         </dependency>
     </dependencies>
     

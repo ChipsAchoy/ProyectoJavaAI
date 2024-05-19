@@ -108,6 +108,37 @@ public class JsonExtractor {
         return answersByNumbers;
     }
     
+    public List<String> getQuestionStatements(String content) {
+        List<String> questionStatements = new ArrayList<>();
+        JSONArray rootArray = new JSONArray(content);
+        for (int i = 0; i < rootArray.length(); i++) {
+            JSONObject questionObject = rootArray.getJSONObject(i);
+            String questionKey = questionObject.keys().next();
+            JSONObject questionDetails = questionObject.getJSONObject(questionKey);
+            questionStatements.add(questionDetails.getString("enunciado"));
+        }
+
+        return questionStatements;
+    }
+
+    public List<String> getAllAnswerStatements(String content) {
+        List<String> answerStatements = new ArrayList<>();
+        JSONArray rootArray = new JSONArray(content);
+        for (int i = 0; i < rootArray.length(); i++) {
+            JSONObject questionObject = rootArray.getJSONObject(i);
+            String questionKey = questionObject.keys().next();
+            JSONObject questionDetails = questionObject.getJSONObject(questionKey);
+            JSONArray answers = questionDetails.getJSONArray("respuestas");
+
+            for (int j = 0; j < answers.length(); j++) {
+                JSONObject answer = answers.getJSONObject(j);
+                answerStatements.add(answer.getString("enunciado"));
+            }
+        }
+
+        return answerStatements;
+    }
+    
     public int verifyAnswer(String jsonString, String pregunta, int numeroRespuesta) {
         // JSON en formato String
         
