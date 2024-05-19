@@ -32,10 +32,7 @@ public class ProyectoAITrivia {
     }
 
 }
-*/
-
-
-
+ */
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -51,7 +48,6 @@ import java.util.List;
 import tec.triviaid.proyectoaitrivia.FileController.FileOperations;
 import tec.triviaid.proyectoaitrivia.FileController.PDFCreator;
 import tec.triviaid.proyectoaitrivia.GraphGeneration.WordCloudGenerator;
-
 
 public class ProyectoAITrivia {
 
@@ -82,12 +78,10 @@ public class ProyectoAITrivia {
         } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
-        
-        
+         */
+
         //pdfCreate.createPDF(, , , , , , );
-            
-           /*
+        /*
             
             try {
             respuesta = aiconn.generateTextCompletion("Dame " + String.valueOf(cantidad_preguntas) + " relacionadas al tema " + tema + " en el idioma " + idioma);
@@ -121,8 +115,8 @@ public class ProyectoAITrivia {
             } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
             }
-        */
-           /*
+         */
+ /*
             List<Integer> numbers = List.of(3, 3, 3, 3, 3, 2);
             List<String> answersByNumbers = jext.getAnswersByNumbers(numbers, respuesta_content);
             
@@ -131,56 +125,128 @@ public class ProyectoAITrivia {
                     jext.getAllAnswerStatements(respuesta_content), answersByNumbers,
                     jext.getCorrectAnswers(respuesta_content), "Graficos/piechart.png",1, (float)23.5 );
            
-           */
-           // Datos para el PDF
+         */
+        // Datos para el PDF
         List<String> preguntas = new ArrayList<>();
         preguntas.add("¿Cuál es la capital de España?");
         preguntas.add("¿Cuál es la capital de Argentina?");
         preguntas.add("¿Cuál es la capital de México?");
+        preguntas.add("¿Cuál es la capital de Francia?");
+        preguntas.add("¿Cuál es la capital de Alemania?");
+        preguntas.add("¿Cuál es la capital de Italia?");
+        preguntas.add("¿Cuál es la capital de Japón?");
+        preguntas.add("¿Cuál es la capital de Canadá?");
+        preguntas.add("¿Cuál es la capital de Brasil?");
+        preguntas.add("¿Cuál es la capital de Australia?");
+        preguntas.add("¿Cuál es la capital de Rusia?");
+        preguntas.add("¿Cuál es la capital de China?");
 
         List<String> respuestas = new ArrayList<>();
+        // Pregunta 1
         respuestas.add("Lisboa");
         respuestas.add("Barcelona");
         respuestas.add("Madrid");
         respuestas.add("Valencia");
+        // Pregunta 2
         respuestas.add("Montevideo");
         respuestas.add("Santiago");
         respuestas.add("Buenos Aires");
         respuestas.add("Asunción");
+        // Pregunta 3
         respuestas.add("Bogotá");
         respuestas.add("México D.F.");
         respuestas.add("Ciudad de México");
         respuestas.add("Lima");
+        // Pregunta 4
+        respuestas.add("Marsella");
+        respuestas.add("Lyon");
+        respuestas.add("París");
+        respuestas.add("Toulouse");
+        // Pregunta 5
+        respuestas.add("Múnich");
+        respuestas.add("Hamburgo");
+        respuestas.add("Berlín");
+        respuestas.add("Colonia");
+        // Pregunta 6
+        respuestas.add("Milán");
+        respuestas.add("Nápoles");
+        respuestas.add("Roma");
+        respuestas.add("Florencia");
+        // Pregunta 7
+        respuestas.add("Kioto");
+        respuestas.add("Osaka");
+        respuestas.add("Tokio");
+        respuestas.add("Nagoya");
+        // Pregunta 8
+        respuestas.add("Toronto");
+        respuestas.add("Montreal");
+        respuestas.add("Ottawa");
+        respuestas.add("Vancouver");
+        // Pregunta 9
+        respuestas.add("Río de Janeiro");
+        respuestas.add("Sao Paulo");
+        respuestas.add("Brasilia");
+        respuestas.add("Salvador");
+        // Pregunta 10
+        respuestas.add("Sídney");
+        respuestas.add("Melbourne");
+        respuestas.add("Canberra");
+        respuestas.add("Brisbane");
+        // Pregunta 11
+        respuestas.add("San Petersburgo");
+        respuestas.add("Novosibirsk");
+        respuestas.add("Moscú");
+        respuestas.add("Kazan");
+        // Pregunta 12
+        respuestas.add("Shanghái");
+        respuestas.add("Hong Kong");
+        respuestas.add("Beijing");
+        respuestas.add("Guangzhou");
 
         List<String> respuestasJugador = new ArrayList<>();
         respuestasJugador.add("Madrid");
         respuestasJugador.add("Buenos Aires");
         respuestasJugador.add("Ciudad de México");
+        respuestasJugador.add("París");
+        respuestasJugador.add("Berlín");
+        respuestasJugador.add("Roma");
+        respuestasJugador.add("Tokio");
+        respuestasJugador.add("Ottawa");
+        respuestasJugador.add("Brasilia");
+        respuestasJugador.add("Canberra");
+        respuestasJugador.add("Moscú");
+        respuestasJugador.add("Beijing");
 
         List<String> respuestasCorrectas = new ArrayList<>();
         respuestasCorrectas.add("Madrid");
         respuestasCorrectas.add("Buenos Aires");
         respuestasCorrectas.add("Ciudad de México");
+        respuestasCorrectas.add("París");
+        respuestasCorrectas.add("Berlín");
+        respuestasCorrectas.add("Roma");
+        respuestasCorrectas.add("Tokio");
+        respuestasCorrectas.add("Ottawa");
+        respuestasCorrectas.add("Brasilia");
+        respuestasCorrectas.add("Canberra");
+        respuestasCorrectas.add("Moscú");
+        respuestasCorrectas.add("Beijing");
 
         String imagePath = "Graficos/piechart.png"; // Ruta de la imagen
         int comodinesUsados = 2;
         float avgTime = 45.5f;
-        int correctas = 3;
-        int incorrectas = 0;
+        int correctas = 6;
+        int incorrectas = 6;
 
         // Generar PDF
         PDFCreator pdfCreator = new PDFCreator();
-        pdfCreator.createPDF("PDFSend/reporte_trivia.pdf", preguntas, respuestas, respuestasJugador, 
+        pdfCreator.createPDF("PDFSend/reporte_trivia.pdf", preguntas, respuestas, respuestasJugador,
                 respuestasCorrectas, imagePath, comodinesUsados, avgTime, correctas, incorrectas);
-        
-        
+
         File fpdf = new File("PDFSend/reporte_trivia.pdf");
         //emcont.emailSend("divad0907@gmail.com", "Reciba un saludo, estimad@ usuari@, este es el reporte de su trivia", fpdf);
 
     }
 }
-
-
 
 /*
 import javax.swing.JFrame;
@@ -206,4 +272,4 @@ public class ProyectoAITrivia extends JFrame {
     }
 }
 
-*/
+ */
