@@ -29,7 +29,7 @@ public class PieChartGenerator extends JFrame {
 
         // Crear el panel de gráficos y agregarlo al JFrame
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+        chartPanel.setPreferredSize(new java.awt.Dimension(300, 300));
         setContentPane(chartPanel);
     }
 
