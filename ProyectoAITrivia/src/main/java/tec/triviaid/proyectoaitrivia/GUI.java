@@ -119,27 +119,44 @@ public class GUI extends javax.swing.JFrame {
 
         temaField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         temaField.setToolTipText("");
+        temaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temaFieldActionPerformed(evt);
+            }
+        });
 
         TemaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TemaLabel.setText("Tema de conocimiento general:");
 
         numPreguntasField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         numPreguntasField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6", "7", "8", "9", "10", "11", "12" }));
-        
+        numPreguntasField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numPreguntasFieldActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Cantidad de Preguntas:");
 
         tiempoxPreguntaField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tiempoxPreguntaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        
+        tiempoxPreguntaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiempoxPreguntaFieldActionPerformed(evt);
+            }
+        });
 
         TiempoxPreguntaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TiempoxPreguntaLabel.setText("Tiempo por Pregunta (minutos):");
 
         iIdiomaField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         iIdiomaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés", "Mandarín", "Francés" }));
-        
+        iIdiomaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iIdiomaFieldActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Idioma:");
@@ -349,19 +366,6 @@ public class GUI extends javax.swing.JFrame {
         triviaPanel.setLayout(triviaPanelLayout);
         triviaPanelLayout.setHorizontalGroup(
             triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(triviaPanelLayout.createSequentialGroup()
-                .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(triviaPanelLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(fiftyfifty_button)
-                            .addComponent(add_min_button))
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(triviaPanelLayout.createSequentialGroup()
-                        .addGap(254, 254, 254)
-                        .addComponent(TimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(131, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, triviaPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,6 +381,19 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, triviaPanelLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(310, 310, 310))))
+            .addGroup(triviaPanelLayout.createSequentialGroup()
+                .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(triviaPanelLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(fiftyfifty_button)
+                            .addComponent(add_min_button))
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(triviaPanelLayout.createSequentialGroup()
+                        .addGap(254, 254, 254)
+                        .addComponent(TimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         triviaPanelLayout.setVerticalGroup(
             triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
