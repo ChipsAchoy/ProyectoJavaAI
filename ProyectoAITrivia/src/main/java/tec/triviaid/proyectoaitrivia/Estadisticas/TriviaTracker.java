@@ -64,6 +64,9 @@ public class TriviaTracker {
         tiempoxpregunta  = remainingSeconds / total_preguntas;
     }
     
+    public float getAverage(){
+        return tiempoxpregunta;
+    }
     
     public int getComodines(){
         

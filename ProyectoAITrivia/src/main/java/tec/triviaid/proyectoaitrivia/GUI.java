@@ -77,6 +77,11 @@ public class GUI extends javax.swing.JFrame {
         fiftyfifty_button = new javax.swing.JButton();
         add_min_button = new javax.swing.JButton();
         statsPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        statTable = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        comodinesLabel = new javax.swing.JLabel();
+        tiempoxpreguntaLabel = new javax.swing.JLabel();
         feedbackPanel = new javax.swing.JPanel();
         endResetPanel = new javax.swing.JPanel();
 
@@ -102,22 +107,38 @@ public class GUI extends javax.swing.JFrame {
         NombreLabel.setText("Nombre:");
 
         temaField.setToolTipText("");
-        
+        temaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temaFieldActionPerformed(evt);
+            }
+        });
 
         TemaLabel.setText("Tema de conocimiento general:");
 
         numPreguntasField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6", "7", "8", "9", "10", "11", "12" }));
-        
+        numPreguntasField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numPreguntasFieldActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Cantidad de Preguntas:");
 
         tiempoxPreguntaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        
+        tiempoxPreguntaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiempoxPreguntaFieldActionPerformed(evt);
+            }
+        });
 
         TiempoxPreguntaLabel.setText("Tiempo por Pregunta (minutos):");
 
         iIdiomaField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés", "Mandarín", "Francés" }));
-        
+        iIdiomaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iIdiomaFieldActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Idioma:");
 
@@ -151,7 +172,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
                 .addGroup(generatemenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(temaField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TemaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +259,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +275,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(menuLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,7 +359,7 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(add_min_button))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, triviaPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(TimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,15 +392,70 @@ public class GUI extends javax.swing.JFrame {
 
         background.add(triviaPanel, "card4");
 
+        statTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Pregunta", "Respuesta Correcta"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(statTable);
+        if (statTable.getColumnModel().getColumnCount() > 0) {
+            statTable.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Resultados de la Trivia!!");
+
+        comodinesLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        comodinesLabel.setText("Comodines Usados:");
+
+        tiempoxpreguntaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tiempoxpreguntaLabel.setText("Tiempo por pregunta: ");
+
         javax.swing.GroupLayout statsPanelLayout = new javax.swing.GroupLayout(statsPanel);
         statsPanel.setLayout(statsPanelLayout);
         statsPanelLayout.setHorizontalGroup(
             statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGroup(statsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(statsPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comodinesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tiempoxpreguntaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
+                .addContainerGap())
         );
         statsPanelLayout.setVerticalGroup(
             statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addGroup(statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                    .addGroup(statsPanelLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(comodinesLabel)
+                        .addGap(55, 55, 55)
+                        .addComponent(tiempoxpreguntaLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         background.add(statsPanel, "card5");
@@ -388,11 +464,11 @@ public class GUI extends javax.swing.JFrame {
         feedbackPanel.setLayout(feedbackPanelLayout);
         feedbackPanelLayout.setHorizontalGroup(
             feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 717, Short.MAX_VALUE)
         );
         feedbackPanelLayout.setVerticalGroup(
             feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 452, Short.MAX_VALUE)
         );
 
         background.add(feedbackPanel, "card6");
@@ -401,11 +477,11 @@ public class GUI extends javax.swing.JFrame {
         endResetPanel.setLayout(endResetPanelLayout);
         endResetPanelLayout.setHorizontalGroup(
             endResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 717, Short.MAX_VALUE)
         );
         endResetPanelLayout.setVerticalGroup(
             endResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 452, Short.MAX_VALUE)
         );
 
         background.add(endResetPanel, "card7");
@@ -414,7 +490,7 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,7 +697,8 @@ public class GUI extends javax.swing.JFrame {
         File imageFile = new File("Graficos/piechart.png");
         pieStats.saveChartAsImage(imageFile, 600, 600);
         
-        
+        comodinesLabel.setText("Comodines Usados: "+tracker.getComodines());
+        tiempoxpreguntaLabel.setText("Tiempo por pregunta: "+tracker.getAverage());
     }
     
     
@@ -849,6 +926,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList<String> TriviasList;
     private javax.swing.JButton add_min_button;
     private javax.swing.JPanel background;
+    private javax.swing.JLabel comodinesLabel;
     public javax.swing.JTextField correoField;
     private javax.swing.JPanel endResetPanel;
     private javax.swing.JPanel feedbackPanel;
@@ -862,8 +940,10 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel menu;
     public javax.swing.JTextField nombreField;
     public javax.swing.JComboBox<String> numPreguntasField;
@@ -872,9 +952,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton option3button;
     private javax.swing.JButton option4button;
     private javax.swing.JTextArea preguntaField;
+    private javax.swing.JTable statTable;
     private javax.swing.JPanel statsPanel;
     public javax.swing.JTextField temaField;
     public javax.swing.JComboBox<String> tiempoxPreguntaField;
+    private javax.swing.JLabel tiempoxpreguntaLabel;
     private javax.swing.JPanel triviaPanel;
     // End of variables declaration//GEN-END:variables
 }
