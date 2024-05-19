@@ -4,6 +4,8 @@
  */
 package tec.triviaid.proyectoaitrivia.Estadisticas;
 
+import java.util.List;
+
 
 public class TriviaTracker {
 
@@ -13,18 +15,20 @@ public class TriviaTracker {
     
     private int[] preguntas;
 
-    private float tiempoxpregunta = 0;
+    private int tiempoxpregunta = 0;
     private int remainingSeconds = 0;
-    
+    private float tiempoAvrg = 0;
     private int comodinesUsados = 0;
+    private List<String> respuestas;
 
     public TriviaTracker(int total_preguntas) {
         this.total_preguntas = total_preguntas;
         preguntas = new int[total_preguntas];
+        this.respuestas = new java.util.ArrayList<>();
     }
 
     public void add_average() {
-        this.tiempoxpregunta += remainingSeconds;
+        this.tiempoAvrg += (tiempoxpregunta*60) - remainingSeconds;
     }
 
     public void setRemainingSeconds(int seconds) {
@@ -36,12 +40,12 @@ public class TriviaTracker {
 
     public void addCorrecta(int pregunta) {
         correctas++;
-        preguntas[pregunta] = 1;
+        preguntas[pregunta-1] = 1;
     }
 
     public void addIncorrecta(int pregunta) {
         incorrectas++;
-        preguntas[pregunta] = -1;
+        preguntas[pregunta-1] = -1;
     }
 
     public int getCorrectas() {
@@ -61,11 +65,11 @@ public class TriviaTracker {
     }
 
     public void calculateAverage() {
-        tiempoxpregunta  = remainingSeconds / total_preguntas;
+        this.tiempoAvrg  = tiempoAvrg / total_preguntas;
     }
     
     public float getAverage(){
-        return tiempoxpregunta;
+        return this.tiempoAvrg;
     }
     
     public int getComodines(){
@@ -79,5 +83,21 @@ public class TriviaTracker {
 
     public void addTime(){
         this.remainingSeconds += 60;
+    }
+
+    public int get_tiempoxpregunta() {
+        return tiempoxpregunta;
+    }
+    public void set_tiempoxpregunta(int tiempoxpregunta) {
+        this.tiempoxpregunta = tiempoxpregunta;
+    }
+
+    public void addRespuestas(String respuesta) {
+        //append
+        this.respuestas.add(respuesta);
+    }
+
+    public List<String> getRespuestas() {
+        return respuestas;
     }
 }

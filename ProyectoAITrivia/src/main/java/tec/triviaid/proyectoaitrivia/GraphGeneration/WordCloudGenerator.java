@@ -16,7 +16,6 @@ public class WordCloudGenerator {
 
     public void initUI(List<String> words) {
         JFrame frame = new JFrame("Word Cloud");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         Cloud cloud = new Cloud();
         Random random = new Random();
@@ -29,7 +28,7 @@ public class WordCloudGenerator {
             final JLabel label = new JLabel(tag.getName());
             label.setOpaque(false);
             label.setForeground(getRandomColor(random));
-            label.setFont(label.getFont().deriveFont((float) tag.getWeight() * 10));
+            label.setFont(label.getFont().deriveFont((float) tag.getWeight() * 60));
             panel.add(label);
         }
         frame.add(panel);

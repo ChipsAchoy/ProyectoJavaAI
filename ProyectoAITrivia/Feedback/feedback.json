@@ -104,5 +104,14 @@
   }, {
     "numero" : 34,
     "comentario" : "Inmejorable"
+  }, {
+    "numero" : 35,
+    "comentario" : "Divertida"
+  }, {
+    "numero" : 36,
+    "comentario" : "Mala"
+  }, {
+    "numero" : 37,
+    "comentario" : "Mala"
   } ]
 }

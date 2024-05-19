@@ -31,6 +31,9 @@ public class PieChartGenerator extends JFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(300, 300));
         setContentPane(chartPanel);
+
+        
+        
     }
 
     private PieDataset createDataset(java.util.List<String> categories, java.util.List<Integer> values) {

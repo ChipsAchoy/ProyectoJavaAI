@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import tec.triviaid.proyectoaitrivia.TriviaController.TriviaController;
+import tec.triviaid.proyectoaitrivia.FileController.PDFCreator;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -16,19 +17,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JTable;
+
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import java.awt.Component;
-import java.awt.Color;
+
+import com.itextpdf.io.exceptions.IoExceptionMessage;
+
+import tec.triviaid.proyectoaitrivia.EmailOpController.EmailSender;
+
+
+import tec.triviaid.proyectoaitrivia.EmailOpController.EmailValidation;
 import tec.triviaid.proyectoaitrivia.EmotionAnalyzer.EmotionGetter;
-
-//import org.springframework.stereotype.Component;
-
-//import com.itextpdf.kernel.colors.Color;
 
 import tec.triviaid.proyectoaitrivia.Estadisticas.TriviaTracker;
 import tec.triviaid.proyectoaitrivia.FileController.FileOperations;
+import tec.triviaid.proyectoaitrivia.FileController.PDFCreator;
+
 import tec.triviaid.proyectoaitrivia.GraphGeneration.PieChartGenerator;
 import tec.triviaid.proyectoaitrivia.GraphGeneration.WordCloudGenerator;
 import tec.triviaid.proyectoaitrivia.JsonController.JsonExtractor;
@@ -92,7 +95,15 @@ public class GUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         comodinesLabel = new javax.swing.JLabel();
         tiempoxpreguntaLabel = new javax.swing.JLabel();
+        continuestatsButton = new javax.swing.JButton();
+        sendReportButton = new javax.swing.JButton();
         feedbackPanel = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        commentField = new javax.swing.JTextArea();
+        enviarCommentButton = new javax.swing.JButton();
+        comment_worldCloudButton = new javax.swing.JButton();
+        returnInicio = new javax.swing.JButton();
         endResetPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -172,7 +183,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
                 .addGroup(generatemenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(temaField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(correoField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,7 +276,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 74, Short.MAX_VALUE))
+                .addGap(0, 130, Short.MAX_VALUE))
             .addGroup(menuLayout.createSequentialGroup()
                 .addGap(287, 287, 287)
                 .addComponent(TriviaSelectButton)
@@ -342,6 +353,14 @@ public class GUI extends javax.swing.JFrame {
         triviaPanel.setLayout(triviaPanelLayout);
         triviaPanelLayout.setHorizontalGroup(
             triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(triviaPanelLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fiftyfifty_button)
+                    .addComponent(add_min_button))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(187, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, triviaPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,20 +375,10 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(92, 92, 92))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, triviaPanelLayout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(310, 310, 310))))
-            .addGroup(triviaPanelLayout.createSequentialGroup()
-                .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(triviaPanelLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(fiftyfifty_button)
-                            .addComponent(add_min_button))
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(triviaPanelLayout.createSequentialGroup()
-                        .addGap(254, 254, 254)
-                        .addComponent(TimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                        .addGap(310, 310, 310))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, triviaPanelLayout.createSequentialGroup()
+                        .addComponent(TimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(227, 227, 227))))
         );
         triviaPanelLayout.setVerticalGroup(
             triviaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,17 +409,17 @@ public class GUI extends javax.swing.JFrame {
 
         statTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Pregunta", "Respuesta Correcta"
+                "Pregunta", "Respuesta Correcta", "Acertada"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -431,6 +440,22 @@ public class GUI extends javax.swing.JFrame {
         tiempoxpreguntaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tiempoxpreguntaLabel.setText("Tiempo por pregunta: ");
 
+        continuestatsButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        continuestatsButton.setText("Continuar");
+        continuestatsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                continuestatsButtonActionPerformed(evt);
+            }
+        });
+
+        sendReportButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        sendReportButton.setText("Enviar Reporte por Correo");
+        sendReportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendReportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout statsPanelLayout = new javax.swing.GroupLayout(statsPanel);
         statsPanel.setLayout(statsPanelLayout);
         statsPanelLayout.setHorizontalGroup(
@@ -441,10 +466,21 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(statsPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comodinesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tiempoxpreguntaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+                    .addGroup(statsPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comodinesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tiempoxpreguntaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(statsPanelLayout.createSequentialGroup()
+                        .addGroup(statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(statsPanelLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(sendReportButton))
+                            .addGroup(statsPanelLayout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(continuestatsButton)))
+                        .addGap(0, 44, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         statsPanelLayout.setVerticalGroup(
@@ -454,27 +490,87 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addGroup(statsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                    .addGroup(statsPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(statsPanelLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(comodinesLabel)
                         .addGap(55, 55, 55)
                         .addComponent(tiempoxpreguntaLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sendReportButton)
+                        .addGap(58, 58, 58)
+                        .addComponent(continuestatsButton)
+                        .addGap(29, 29, 29))))
         );
 
         background.add(statsPanel, "card5");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel8.setText("Comentarios sobre la trivia");
+
+        commentField.setColumns(20);
+        commentField.setRows(5);
+        jScrollPane4.setViewportView(commentField);
+
+        enviarCommentButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        enviarCommentButton.setText("Enviar");
+        enviarCommentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarCommentButtonActionPerformed(evt);
+            }
+        });
+
+        comment_worldCloudButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        comment_worldCloudButton.setText("Ver Word Cloud");
+        comment_worldCloudButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comment_worldCloudButtonActionPerformed(evt);
+            }
+        });
+
+        returnInicio.setText("Regresar al Inicio");
+        returnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnInicioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout feedbackPanelLayout = new javax.swing.GroupLayout(feedbackPanel);
         feedbackPanel.setLayout(feedbackPanelLayout);
         feedbackPanelLayout.setHorizontalGroup(
             feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 733, Short.MAX_VALUE)
+            .addGroup(feedbackPanelLayout.createSequentialGroup()
+                .addGroup(feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(feedbackPanelLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(enviarCommentButton)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(feedbackPanelLayout.createSequentialGroup()
+                        .addGap(310, 310, 310)
+                        .addComponent(comment_worldCloudButton))
+                    .addGroup(feedbackPanelLayout.createSequentialGroup()
+                        .addGap(332, 332, 332)
+                        .addComponent(returnInicio)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         feedbackPanelLayout.setVerticalGroup(
             feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
+            .addGroup(feedbackPanelLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(enviarCommentButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(comment_worldCloudButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(returnInicio)
+                .addGap(32, 32, 32))
         );
 
         background.add(feedbackPanel, "card6");
@@ -483,7 +579,7 @@ public class GUI extends javax.swing.JFrame {
         endResetPanel.setLayout(endResetPanelLayout);
         endResetPanelLayout.setHorizontalGroup(
             endResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 733, Short.MAX_VALUE)
+            .addGap(0, 789, Short.MAX_VALUE)
         );
         endResetPanelLayout.setVerticalGroup(
             endResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,7 +615,16 @@ public class GUI extends javax.swing.JFrame {
         else{
             //set the data
             userdata.setNombre(nombreField.getText());
-            userdata.setCorreo(correoField.getText());
+
+            EmailValidation emailValidator = new EmailValidation();
+            if (emailValidator.emailValidator(correoField.getText()) == 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Correo inválido");
+                return;
+            }
+            else{
+                userdata.setCorreo(correoField.getText());
+            }
+
             userdata.setCantidad_preguntas(Integer.parseInt(numPreguntasField.getSelectedItem().toString()));
             userdata.setIdioma(iIdiomaField.getSelectedItem().toString());
             userdata.setTema(temaField.getText());
@@ -569,8 +674,20 @@ public class GUI extends javax.swing.JFrame {
         else{
             //set the data
             userdata.setNombre(nombreField.getText());
-            userdata.setCorreo(correoField.getText());
             
+            /*
+            EmailValidation emailValidator = new EmailValidation();
+            if (emailValidator.emailValidator(correoField.getText()) == 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Correo inválido");
+                return;
+            }
+            else{
+                userdata.setCorreo(correoField.getText());
+            }
+            */
+            
+            userdata.setCorreo(correoField.getText());
+
             generation_to_menu();
 
         }
@@ -581,34 +698,32 @@ public class GUI extends javax.swing.JFrame {
         fiftyfifty_button.setEnabled(false);
         tracker.useComodin();
         //randomly select two wrong answers
+        int veces = 0;
         for (int i = 1; i <= 4; i++) {
             if (jext.verifyAnswer(currentTrivia.getTriviaString(), "pregunta" + currentQuestionIndex, i) == 0) {
-                if (i != 1 && i != 2) {
-                    if (Math.random() < 0.5) {
-                    if (i == 3) {
-                        option3button.setEnabled(false);
-                    } else {
-                        option4button.setEnabled(false);
+                if(veces <2){
+                    switch (i) {
+                        case 1:
+                            option1button.setEnabled(false);
+                            break;
+                        case 2:
+                            option2button.setEnabled(false);
+                            break;
+                        case 3:
+                            option3button.setEnabled(false);
+                            break;
+                        case 4:
+                            option4button.setEnabled(false);
+                            break;
                     }
-                    } else {
-                    if (i == 3) {
-                        option4button.setEnabled(false);
-                    } else {
-                        option3button.setEnabled(false);
-                    }
-                    }
-                } else if (i == 1) {
-                    option1button.setEnabled(false);
-                } else if (i == 2) {
-                    option2button.setEnabled(false);
+                    veces++;
                 }
-            }       
+            }
+        }       
         
     }
         
-
-
-    }//GEN-LAST:event_fiftyfifty_buttonActionPerformed
+//GEN-LAST:event_fiftyfifty_buttonActionPerformed
 
     private void add_min_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_min_buttonActionPerformed
         add_min_button.setEnabled(false);
@@ -619,26 +734,99 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_add_min_buttonActionPerformed
 
     private void option1buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1buttonActionPerformed
-        // TODO add your handling code here:
+        
+        tracker.addRespuestas(option1button.getText());
         verifyAnswer(1);
     }//GEN-LAST:event_option1buttonActionPerformed
 
     private void option2buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option2buttonActionPerformed
-        // TODO add your handling code here:
+        tracker.addRespuestas(option2button.getText());
         verifyAnswer(2);
     }//GEN-LAST:event_option2buttonActionPerformed
 
 
     private void option3buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option3buttonActionPerformed
-        // TODO add your handling code here:
+        tracker.addRespuestas(option3button.getText());
         verifyAnswer(3);
     }//GEN-LAST:event_option3buttonActionPerformed
 
 
     private void option4buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option4buttonActionPerformed
-        // TODO add your handling code here:
+        tracker.addRespuestas(option4button.getText());
         verifyAnswer(4);
     }//GEN-LAST:event_option4buttonActionPerformed
+
+    private void continuestatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuestatsButtonActionPerformed
+        // TODO add your handling code here:
+        stats_to_feedback();
+    }//GEN-LAST:event_continuestatsButtonActionPerformed
+
+    private void enviarCommentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarCommentButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            FileOperations fop = new FileOperations("Feedback/feedback.json");
+            
+            fop.readComments();
+            
+            
+            
+            fop.appendToJson(commentField.getText());
+
+            //show success message
+            javax.swing.JOptionPane.showMessageDialog(this, "Comentario enviado con éxito");
+
+            //erase the comment field
+            commentField.setText("");
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_enviarCommentButtonActionPerformed
+
+    private void sendReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendReportButtonActionPerformed
+        // TODO add your handling code here:
+        PDFCreator pdf = new PDFCreator();
+        
+        String trivia_string = currentTrivia.getTriviaString();
+        List<String> preguntas = jext.getQuestionStatements(trivia_string);
+        List<String> respuestas = jext.getAllAnswerStatements(trivia_string);
+        List<String> respuestasJug = tracker.getRespuestas();
+        List<String> respuestas_corr = jext.getCorrectAnswers(trivia_string);
+        String imagePath = "Graficos/piechart.png";
+        int comodines_usados = tracker.getComodines();
+        float avrg_time = tracker.getAverage();
+        int correctas = tracker.getCorrectas();
+        int incorrectas = tracker.getIncorrectas();
+
+        pdf.createPDF("PDFSend/reporte_trivia.pdf", preguntas, respuestas, respuestasJug, respuestas_corr, imagePath, comodines_usados, avrg_time, correctas, incorrectas);
+        File fpdf = new File("PDFSend/reporte_trivia.pdf");
+
+        try {
+            EmailSender emailsender = new EmailSender();
+            emailsender.emailSend(userdata.getCorreo(), imagePath, fpdf);
+            javax.swing.JOptionPane.showMessageDialog(this, "Reporte enviado con éxito");
+        } catch (Exception e) {
+            //Javax window 
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al enviar el reporte");
+        }
+        
+        
+
+    }//GEN-LAST:event_sendReportButtonActionPerformed
+
+    private void comment_worldCloudButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comment_worldCloudButtonActionPerformed
+        // TODO add your handling code here:
+
+        feedback_to_endReset();
+    }//GEN-LAST:event_comment_worldCloudButtonActionPerformed
+
+    private void returnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnInicioActionPerformed
+        // TODO add your handling code here:
+        end_to_menu();
+    }//GEN-LAST:event_returnInicioActionPerformed
 
     
     
@@ -693,66 +881,60 @@ public class GUI extends javax.swing.JFrame {
         
         pieStats.setSize(600, 600);
         pieStats.setLocationRelativeTo(null);
-        pieStats.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pieStats.setVisible(true);
+        
         
         File imageFile = new File("Graficos/piechart.png");
         pieStats.saveChartAsImage(imageFile, 600, 600);
         
         comodinesLabel.setText("Comodines Usados: "+tracker.getComodines());
-        tiempoxpreguntaLabel.setText("Tiempo por pregunta: "+tracker.getAverage() + " s");
+        double average = tracker.getAverage();
+        String formattedAverage = String.format("%.2f", average);
+        tiempoxpreguntaLabel.setText("Tiempo por pregunta: " + formattedAverage + " s");
 
         //fill the table with the stats
-        String columnNames[] = {"Pregunta", "Respuesta Correcta xd"};
-        String data[][] = new String[currentTrivia.getCantidadPreguntas()][2];
+        String columnNames[] = {"Pregunta", "Respuesta Correcta","Acertada"};
+        String data[][] = new String[currentTrivia.getCantidadPreguntas()][3];
         List<String> correctAnswers = jext.getCorrectAnswers(currentTrivia.getTriviaString());
+        int[] respuestas = tracker.getPreguntas();
         for (int i = 0; i < currentTrivia.getCantidadPreguntas(); i++) {
-            data[i][0] = jext.getQuestionEnunciado(currentTrivia.getTriviaString(), "pregunta"+i);
+            int numpregunta = i+1;
+            String pregunta = jext.getQuestionEnunciado(currentTrivia.getTriviaString(), "pregunta"+numpregunta);
+            //check if string length is greater than 10 then have an enter in the string
+        
+
+            data[i][0] = pregunta;
             data[i][1] = correctAnswers.get(i);
+            
+            if(respuestas[i] == 1){
+                data[i][2] = "Si";
+            }
+            else{
+                data[i][2] = "No";
+            }
         }
 
         DefaultTableModel model = new DefaultTableModel(data,columnNames);
         statTable.setModel(model);
+        
+
 
     }
     
     
     public void stats_to_feedback(){
         
-        
         statsPanel.setVisible(false);
         feedbackPanel.setVisible(true);
-        try {
-
-            FileOperations fop = new FileOperations("Feedback/feedback.json");
-            
-            fop.readComments();
-            
-            
-            String comentario = "Me gusta";
-            fop.appendToJson(comentario);
-            
-            
-            
-            
-            
-            
-        } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         
     }
     
     public void feedback_to_endReset(){
         
         
-        statsPanel.setVisible(false);
-        feedbackPanel.setVisible(true);
         try {
 
             FileOperations fop = new FileOperations("Feedback/feedback.json");
-            
             
             List<String> current_words = fop.readComments();
             
@@ -782,7 +964,6 @@ public class GUI extends javax.swing.JFrame {
             PieChartGenerator chartAnalysis = new PieChartGenerator("Analisis de Sentimientos", statsContent, statsAnalysis);
             chartAnalysis.setSize(600, 600);
             chartAnalysis.setLocationRelativeTo(null);
-            chartAnalysis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             chartAnalysis.setVisible(true);
             
         } catch (IOException ex) {
@@ -790,6 +971,11 @@ public class GUI extends javax.swing.JFrame {
         }
         
         
+    }
+
+    public void end_to_menu(){
+        //close jframe
+        this.dispose();
     }
     
     public void start_trivia(){
@@ -809,7 +995,7 @@ public class GUI extends javax.swing.JFrame {
 
         //start tracking the trivia
         tracker = new TriviaTracker(currentTrivia.getCantidadPreguntas());
-
+        tracker.set_tiempoxpregunta(currentTrivia.getTiempoXPregunta());
         //start the timer
         start_timer();
     }
@@ -840,6 +1026,9 @@ public class GUI extends javax.swing.JFrame {
                         remainingSeconds--;
                         tracker.setRemainingSeconds(remainingSeconds);
                     } else {
+                        tracker.addRespuestas("Tiempo agotado");
+                        //show message
+                        javax.swing.JOptionPane.showMessageDialog(null, "Tiempo agotado");
                         next_question();
                         scheduler.shutdown();
                     }
@@ -881,12 +1070,12 @@ public class GUI extends javax.swing.JFrame {
         if (respuestaState == 0){
             scheduler.shutdownNow();
             javax.swing.JOptionPane.showMessageDialog(this, "Respuesta Incorrecta!!!!");
-            tracker.addIncorrecta(index);
+            tracker.addIncorrecta(currentQuestionIndex);
             
         }else{
             scheduler.shutdownNow();
             javax.swing.JOptionPane.showMessageDialog(this, "Respuesta Correcta!!!");
-            tracker.addCorrecta(index);
+            tracker.addCorrecta(currentQuestionIndex);
         }
 
         next_question();
@@ -969,9 +1158,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JList<String> TriviasList;
     private javax.swing.JButton add_min_button;
     private javax.swing.JPanel background;
+    private javax.swing.JTextArea commentField;
+    private javax.swing.JButton comment_worldCloudButton;
     private javax.swing.JLabel comodinesLabel;
+    private javax.swing.JButton continuestatsButton;
     public javax.swing.JTextField correoField;
     private javax.swing.JPanel endResetPanel;
+    private javax.swing.JButton enviarCommentButton;
     private javax.swing.JPanel feedbackPanel;
     private javax.swing.JButton fiftyfifty_button;
     public javax.swing.JButton generateButton;
@@ -984,9 +1177,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel menu;
     public javax.swing.JTextField nombreField;
     public javax.swing.JComboBox<String> numPreguntasField;
@@ -995,6 +1190,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton option3button;
     private javax.swing.JButton option4button;
     private javax.swing.JTextArea preguntaField;
+    private javax.swing.JButton returnInicio;
+    private javax.swing.JButton sendReportButton;
     private javax.swing.JTable statTable;
     private javax.swing.JPanel statsPanel;
     public javax.swing.JTextField temaField;
@@ -1002,4 +1199,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel tiempoxpreguntaLabel;
     private javax.swing.JPanel triviaPanel;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -26,8 +26,6 @@ public class JsonExtractor {
                 if (questionObject != null) {
                     return questionObject.getString("enunciado");
                 }
-            }else {
-                System.out.println("No se encontró la clave de pregunta: " + questionKey);
             }
             
         }
@@ -50,12 +48,8 @@ public class JsonExtractor {
                         for (int j = 0; j < respuestasArray.length(); j++) {
                             enunciados.add(respuestasArray.getJSONObject(j).getString("enunciado"));
                         }
-                    } else {
-                        System.out.println("No se encontraron respuestas para la pregunta: " + questionKey);
-                    }
-                } else {
-                    System.out.println("No se encontró la clave de pregunta: " + questionKey);
-                }
+                    } 
+                } 
             }
         } catch (Exception e) {
             e.printStackTrace();
