@@ -16,6 +16,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.Component;
+import java.awt.Color;
+
+//import org.springframework.stereotype.Component;
+
+//import com.itextpdf.kernel.colors.Color;
 
 import tec.triviaid.proyectoaitrivia.Estadisticas.TriviaTracker;
 import tec.triviaid.proyectoaitrivia.FileController.FileOperations;
@@ -703,6 +712,38 @@ public class GUI extends javax.swing.JFrame {
         
         comodinesLabel.setText("Comodines Usados: "+tracker.getComodines());
         tiempoxpreguntaLabel.setText("Tiempo por pregunta: "+tracker.getAverage() + " s");
+
+        //fill the table with the stats
+        statTable = new JTable() {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = (Component) super.prepareRenderer(renderer, row, column);
+        
+                //  Column data at row
+                int[] preguntas = tracker.getPreguntas();
+        
+                //  Change row color where necessary
+                if (preguntas[row] == 1) {
+                    c.setBackground(Color.GREEN);
+                } else {
+                    c.setBackground(Color.RED);
+                }
+        
+                return c;
+            }
+        };
+
+        String columnNames[] = {"Pregunta", "Respuesta Correcta"};
+        String data[][] = new String[currentTrivia.getCantidadPreguntas()][2];
+        List<String> correctAnswers = jext.getCorrectAnswers(currentTrivia.getTriviaString());
+        for (int i = 0; i < currentTrivia.getCantidadPreguntas(); i++) {
+            data[i][0] = jext.getQuestionEnunciado(currentTrivia.getTriviaString(), "pregunta"+i);
+            data[i][1] = correctAnswers.get(i);
+        }
+
+        DefaultTableModel model = new DefaultTableModel(data,columnNames);
+        statTable.setModel(model);
+
     }
     
     
