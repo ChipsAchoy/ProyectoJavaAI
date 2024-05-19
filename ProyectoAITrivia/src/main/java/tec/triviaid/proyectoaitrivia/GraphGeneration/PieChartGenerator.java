@@ -1,28 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tec.triviaid.proyectoaitrivia.GraphGeneration;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.ChartUtils;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 public class PieChartGenerator extends JFrame {
+
+    private JFreeChart chart;
+    private String titleS;
 
     public PieChartGenerator(String title, java.util.List<String> categories, java.util.List<Integer> values) {
         super(title);
-
+        this.titleS = title;
         // Crear el conjunto de datos (dataset)
         PieDataset dataset = createDataset(categories, values);
 
         // Crear el gráfico
-        JFreeChart chart = createChart(dataset);
+        chart = createChart(dataset);
 
         // Crear el panel de gráficos y agregarlo al JFrame
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -32,9 +35,8 @@ public class PieChartGenerator extends JFrame {
 
     private PieDataset createDataset(java.util.List<String> categories, java.util.List<Integer> values) {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        
-        for (int i=0; i<categories.size(); i++){
-            
+
+        for (int i = 0; i < categories.size(); i++) {
             dataset.setValue(categories.get(i), values.get(i));
         }
 
@@ -43,7 +45,7 @@ public class PieChartGenerator extends JFrame {
 
     private JFreeChart createChart(PieDataset dataset) {
         JFreeChart chart = ChartFactory.createPieChart(
-                "Ejemplo de Gráfico de Pastel", // Título del gráfico
+                this.titleS, // Título del gráfico
                 dataset, // Datos
                 true, // Incluye leyenda
                 true,
@@ -62,4 +64,29 @@ public class PieChartGenerator extends JFrame {
         return chart;
     }
 
+    public void saveChartAsImage(File file, int width, int height) {
+        try {
+            ChartUtils.saveChartAsPNG(file, chart, width, height);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+/*
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            java.util.List<String> categories = java.util.Arrays.asList("Categoría A", "Categoría B", "Categoría C", "Categoría D");
+            java.util.List<Integer> values = java.util.Arrays.asList(50, 30, 10, 10);
+
+            PieChartGenerator example = new PieChartGenerator("Gráfico de Pastel Ejemplo", categories, values);
+            example.setSize(800, 600);
+            example.setLocationRelativeTo(null);
+            example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            example.setVisible(true);
+
+            // Guardar el gráfico como imagen
+            File imageFile = new File("piechart.png");
+            example.saveChartAsImage(imageFile, 800, 600);
+        });
+    }
+*/
 }

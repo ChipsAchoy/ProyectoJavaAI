@@ -7,14 +7,16 @@ package tec.triviaid.proyectoaitrivia.Estadisticas;
 
 public class TriviaTracker {
 
-    public int correctas = 0;
-    public int incorrectas = 0;
-    public int total_preguntas = 0;
+    private int correctas = 0;
+    private int incorrectas = 0;
+    private int total_preguntas = 0;
     
-    public int[] preguntas;
+    private int[] preguntas;
 
-    public float tiempoxpregunta = 0;
-    public int remainingSeconds = 0;
+    private float tiempoxpregunta = 0;
+    private int remainingSeconds = 0;
+    
+    private int comodinesUsados = 0;
 
     public TriviaTracker(int total_preguntas) {
         this.total_preguntas = total_preguntas;
@@ -58,9 +60,15 @@ public class TriviaTracker {
     public void calculateAverage() {
         tiempoxpregunta  = remainingSeconds / total_preguntas;
     }
-
     
+    public void addComodin(){
+        
+        this.comodinesUsados++;
+        
+    }
     
-
-
+    private int getComodines(){
+        
+        return this.comodinesUsados;
+    }    
 }

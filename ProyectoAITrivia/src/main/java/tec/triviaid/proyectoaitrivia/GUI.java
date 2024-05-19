@@ -4,6 +4,7 @@
  */
 package tec.triviaid.proyectoaitrivia;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import tec.triviaid.proyectoaitrivia.TriviaController.TriviaController;
@@ -77,6 +78,7 @@ public class GUI extends javax.swing.JFrame {
         add_min_button = new javax.swing.JButton();
         statsPanel = new javax.swing.JPanel();
         feedbackPanel = new javax.swing.JPanel();
+        endResetPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -411,6 +413,19 @@ public class GUI extends javax.swing.JFrame {
 
         background.add(feedbackPanel, "card6");
 
+        javax.swing.GroupLayout endResetPanelLayout = new javax.swing.GroupLayout(endResetPanel);
+        endResetPanel.setLayout(endResetPanelLayout);
+        endResetPanelLayout.setHorizontalGroup(
+            endResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 517, Short.MAX_VALUE)
+        );
+        endResetPanelLayout.setVerticalGroup(
+            endResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 401, Short.MAX_VALUE)
+        );
+
+        background.add(endResetPanel, "card7");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -605,6 +620,9 @@ public class GUI extends javax.swing.JFrame {
         pieStats.setLocationRelativeTo(null);
         pieStats.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pieStats.setVisible(true);
+        
+        File imageFile = new File("Graficos/piechart.png");
+        pieStats.saveChartAsImage(imageFile, 600, 600);
         
         
     }
@@ -820,6 +838,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton add_min_button;
     private javax.swing.JPanel background;
     public javax.swing.JTextField correoField;
+    private javax.swing.JPanel endResetPanel;
     private javax.swing.JPanel feedbackPanel;
     private javax.swing.JButton fiftyfifty_button;
     public javax.swing.JButton generateButton;

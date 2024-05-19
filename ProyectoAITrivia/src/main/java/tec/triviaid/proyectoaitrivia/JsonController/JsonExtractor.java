@@ -65,6 +65,48 @@ public class JsonExtractor {
         return enunciados;
     }
 
+    public List<String> getCorrectAnswers(String content) {
+        List<String> correctAnswers = new ArrayList<>();
+        JSONArray rootArray = new JSONArray(content);
+
+        for (int i = 0; i < rootArray.length(); i++) {
+            JSONObject questionObject = rootArray.getJSONObject(i);
+            String questionKey = questionObject.keys().next();
+            JSONObject questionDetails = questionObject.getJSONObject(questionKey);
+            JSONArray answers = questionDetails.getJSONArray("respuestas");
+
+            for (int j = 0; j < answers.length(); j++) {
+                JSONObject answer = answers.getJSONObject(j);
+                if (answer.getInt("correcta") == 1) {
+                    correctAnswers.add(answer.getString("enunciado"));
+                }
+            }
+        }
+
+        return correctAnswers;
+    }
+
+    public List<String> getAnswersByNumbers(List<Integer> numbers, String content) {
+        List<String> answersByNumbers = new ArrayList<>();
+        JSONArray  rootArray = new JSONArray(content);
+
+        for (int i = 0; i < rootArray.length(); i++) {
+            JSONObject questionObject = rootArray.getJSONObject(i);
+            String questionKey = questionObject.keys().next();
+            JSONObject questionDetails = questionObject.getJSONObject(questionKey);
+            JSONArray answers = questionDetails.getJSONArray("respuestas");
+
+            int requestedNumber = numbers.get(i);
+            for (int j = 0; j < answers.length(); j++) {
+                JSONObject answer = answers.getJSONObject(j);
+                if (answer.getInt("numero") == requestedNumber) {
+                    answersByNumbers.add(answer.getString("enunciado"));
+                }
+            }
+        }
+
+        return answersByNumbers;
+    }
     
     public int verifyAnswer(String jsonString, String pregunta, int numeroRespuesta) {
         // JSON en formato String

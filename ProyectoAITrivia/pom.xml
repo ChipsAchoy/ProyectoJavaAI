@@ -81,6 +81,18 @@
             <artifactId>jcommon</artifactId>
             <version>1.0.24</version>
         </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>sign</artifactId>
+            <version>8.0.4</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>7.1.19</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     
     <properties>

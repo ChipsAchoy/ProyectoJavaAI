@@ -49,6 +49,7 @@ import tec.triviaid.proyectoaitrivia.JsonController.JsonExtractor;
 import java.util.ArrayList;
 import java.util.List;
 import tec.triviaid.proyectoaitrivia.FileController.FileOperations;
+import tec.triviaid.proyectoaitrivia.FileController.PDFCreator;
 import tec.triviaid.proyectoaitrivia.GraphGeneration.WordCloudGenerator;
 
 
@@ -81,8 +82,11 @@ public class ProyectoAITrivia {
         } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        //pdfCreate.createPDF(, , , , , , );
             
-            /*
+           
             
             try {
             respuesta = aiconn.generateTextCompletion("Dame " + String.valueOf(cantidad_preguntas) + " relacionadas al tema " + tema + " en el idioma " + idioma);
@@ -116,7 +120,9 @@ public class ProyectoAITrivia {
             } catch (IOException ex) {
             Logger.getLogger(ProyectoAITrivia.class.getName()).log(Level.SEVERE, null, ex);
             }
-            */
+            
+            PDFCreator pdfCreate = new PDFCreator();
+            pdfCreate.createPDF("PDFSend/file.pdf", , respuestasJugador, respuestasCorrectas, tema, cantidad_preguntas, cantidad_preguntas);
         
         
 
