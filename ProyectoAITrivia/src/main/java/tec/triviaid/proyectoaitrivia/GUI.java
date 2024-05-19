@@ -540,7 +540,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void add_min_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_min_buttonActionPerformed
         add_min_button.setEnabled(false);
-
+        
     }//GEN-LAST:event_add_min_buttonActionPerformed
 
     private void option1buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1buttonActionPerformed
