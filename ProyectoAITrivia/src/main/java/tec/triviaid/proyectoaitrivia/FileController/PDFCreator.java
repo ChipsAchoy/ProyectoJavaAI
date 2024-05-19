@@ -120,27 +120,31 @@ public class PDFCreator {
                 contentStream.showText("Respondidas incorrectamente: " + incorrectas);
                 contentStream.endText();
                 
-                // Agregar imagen al documento (si existe)
-            if (imagePath != null && !imagePath.isEmpty()) {
-                BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
-                int imgWidth = bufferedImage.getWidth();
-                int imgHeight = bufferedImage.getHeight();
-                float maxWidth = page.getMediaBox().getWidth() - 100; // Establecer el ancho máximo como el ancho de la página menos 100
-                float maxHeight = page.getMediaBox().getHeight() - 100; // Establecer la altura máxima como la altura de la página menos 100
-                float widthScale = maxWidth / imgWidth;
-                float heightScale = maxHeight / imgHeight;
-                float scale = Math.min(widthScale, heightScale);
+                 // Crear una nueva página para la imagen
+                PDPage imagePage = new PDPage();
+                document.addPage(imagePage);
 
-                // Redimensionar la imagen
-                int newWidth = (int) (imgWidth * scale);
-                int newHeight = (int) (imgHeight * scale);
+                // Agregar la imagen en la nueva página
+                try (PDPageContentStream imageContentStream = new PDPageContentStream(document, imagePage)) {
+                    // Cargar la imagen desde el archivo
+                    BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
+                    int imgWidth = bufferedImage.getWidth();
+                    int imgHeight = bufferedImage.getHeight();
+                    float maxWidth = imagePage.getMediaBox().getWidth() - 100; // Establecer el ancho máximo como el ancho de la página menos 100
+                    float maxHeight = imagePage.getMediaBox().getHeight() - 100; // Establecer la altura máxima como la altura de la página menos 100
+                    float widthScale = maxWidth / imgWidth;
+                    float heightScale = maxHeight / imgHeight;
+                    float scale = Math.min(widthScale, heightScale);
 
-                // Colocar la imagen al final del documento
-                float x = (page.getMediaBox().getWidth() - newWidth) / 2;
-                float y_1= 50f; // Margen inferior de 50 puntos desde la parte inferior de la página
-                contentStream.drawImage(PDImageXObject.createFromFile(imagePath, document), x, y_1, newWidth, newHeight);
-            }
+                    // Redimensionar la imagen
+                    int newWidth = (int) (imgWidth * scale);
+                    int newHeight = (int) (imgHeight * scale);
 
+                    // Colocar la imagen centrada en la página
+                    float x = (imagePage.getMediaBox().getWidth() - newWidth) / 2;
+                    float y_1 = (imagePage.getMediaBox().getHeight() - newHeight) / 2;
+                    imageContentStream.drawImage(PDImageXObject.createFromFile(imagePath, document), x, y_1, newWidth, newHeight);
+                }
             }
 
             document.save(dest);

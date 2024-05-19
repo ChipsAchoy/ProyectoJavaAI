@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.Component;
 import java.awt.Color;
+import tec.triviaid.proyectoaitrivia.EmotionAnalyzer.EmotionGetter;
 
 //import org.springframework.stereotype.Component;
 
@@ -744,8 +745,12 @@ public class GUI extends javax.swing.JFrame {
 
             FileOperations fop = new FileOperations("Feedback/feedback.json");
             
+            fop.readComments();
             
-            List<String> current_words = fop.readComments();
+            
+            String comentario = "Me gusta";
+            fop.appendToJson(comentario);
+            
             
             
             
@@ -774,6 +779,30 @@ public class GUI extends javax.swing.JFrame {
             wg.initUI(current_words);
             
             
+            EmotionGetter emg = new EmotionGetter();
+            
+            int neutrales = 0;
+            int buenos = 0;
+            int malos = 0;
+            
+            for (int i=0; i<current_words.size(); i++){
+                String callEm = emg.getReaction(current_words.get(i));
+                if (callEm.equals("Bueno")){
+                    buenos ++;
+                }else if (callEm.equals("Neutral")){
+                    neutrales ++;
+                }else{
+                    malos++;
+                }
+            }
+            List<Integer> statsAnalysis = Arrays.asList(buenos, neutrales, malos);
+            List<String> statsContent = Arrays.asList("Buenos", "Neutrales", "Malos");
+            
+            PieChartGenerator chartAnalysis = new PieChartGenerator("Analisis de Sentimientos", statsContent, statsAnalysis);
+            chartAnalysis.setSize(600, 600);
+            chartAnalysis.setLocationRelativeTo(null);
+            chartAnalysis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            chartAnalysis.setVisible(true);
             
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);

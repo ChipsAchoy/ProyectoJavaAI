@@ -175,7 +175,7 @@ public class ProyectoAITrivia {
         
         
         File fpdf = new File("PDFSend/reporte_trivia.pdf");
-        //emcont.emailSend("divad0907@gmail.com", "pruebas", fpdf);
+        //emcont.emailSend("divad0907@gmail.com", "Reciba un saludo, estimad@ usuari@, este es el reporte de su trivia", fpdf);
 
     }
 }

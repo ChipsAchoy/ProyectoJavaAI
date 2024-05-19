@@ -18,7 +18,7 @@ public class EmailSender {
         String apiKey = "abd504c304080821d3974ec7b4d493b5";
         String apiSecret = "a4d800716733625356c1a20fc8bd6fe5";
         String fromEmail = "antoca29@gmail.com";
-        String fromName = "Celeste Proyecto";
+        String fromName = "Proyecto Trivia";
         String toEmail = emailString;
         String toName = "Estimado usuario";
         String subject = "Trivia";
