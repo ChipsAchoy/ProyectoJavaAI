@@ -507,22 +507,26 @@ public class GUI extends javax.swing.JFrame {
             if (jext.verifyAnswer(currentTrivia.getTriviaString(), "pregunta" + currentQuestionIndex, i) == 0) {
                 if (i != 1 && i != 2) {
                     if (Math.random() < 0.5) {
-                        if (i == 3) {
-                            option3button.setEnabled(false);
-                        } else {
-                            
-                            option4button.setEnabled(false);
-                        }
+                    if (i == 3) {
+                        option3button.setEnabled(false);
                     } else {
-                        if (i == 3) {
-                            option4button.setEnabled(false);
-                        } else {
-                            option3button.setEnabled(false);
-                        }
+                        option4button.setEnabled(false);
                     }
+                    } else {
+                    if (i == 3) {
+                        option4button.setEnabled(false);
+                    } else {
+                        option3button.setEnabled(false);
+                    }
+                    }
+                } else if (i == 1) {
+                    option1button.setEnabled(false);
+                } else if (i == 2) {
+                    option2button.setEnabled(false);
                 }
-            }
-        }
+            }       
+        
+    }
         
 
 
@@ -697,11 +701,15 @@ public class GUI extends javax.swing.JFrame {
             scheduler = Executors.newScheduledThreadPool(1);
             Runnable task = new Runnable() {
                 int remainingSeconds = currentTrivia.getTiempoXPregunta() * 60;
+                boolean set = false;
                 
-
                 @Override
                 public void run() {
-                    tracker.setRemainingSeconds(remainingSeconds);
+                    if(!set){
+                        tracker.setRemainingSeconds(remainingSeconds);
+                        set = true;
+                    }
+                    
                     remainingSeconds = tracker.getRemainingSeconds();
                     if (remainingSeconds > 0) {
                         int displayMinutes = remainingSeconds / 60;
@@ -737,6 +745,13 @@ public class GUI extends javax.swing.JFrame {
         option2button.setText(opciones.get(1));
         option3button.setText(opciones.get(2));
         option4button.setText(opciones.get(3));
+
+        //enable all buttons
+        option1button.setEnabled(true);
+        option2button.setEnabled(true);
+        option3button.setEnabled(true);
+        option4button.setEnabled(true);
+
     }
     
     public void verifyAnswer(int index){
